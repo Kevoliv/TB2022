@@ -1,0 +1,151 @@
+<a-entity
+        id="boxGeometry"
+        position="0 2.0 -1"
+        rotation="45 45 0"
+        geometry="primitive: box; height: 0.6; width: 0.6; depth: 0.6"
+        material="color: #ff4b5c"
+        size-change
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="torusGeometry"
+        position="0 2.0 -1"
+        rotation="45 45 0"
+        geometry="primitive: torus; radius: 0.4; radius-tubular: 0.06"
+        material="color: #d2e603"
+        size-change
+        visible="false"
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="sphereGeometry"
+        position="0 2.0 -1"
+        rotation="45 45 0"
+        geometry="primitive: sphere; radius: 0.6;"
+        material="color: #fcdab7"
+        size-change
+        visible="false"
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="menu"
+        menu
+        position="0 1.5 -0.5"
+        rotation="-45 0 0"
+        event-manager
+      >
+        <a-entity slider position="0 0.10 0"></a-entity>
+        <a-entity
+          id="sphereButton"
+          button="label: sphere"
+          position="-0.15 0 0"
+        ></a-entity>
+        <a-entity
+          id="boxButton"
+          button="label: box"
+          position="0 0 0"
+        ></a-entity>
+        <a-entity
+          id="torusButton"
+          button="label: torus"
+          position="0.15 0 0"
+        ></a-entity>
+       <!-- <a-entity
+          id="darkModeButton"
+          button="label: Dark Mode; width: 0.20; toggable: true"
+          position="0 -0.10 0"
+        ></a-entity>-->
+      </a-entity>
+
+animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
+
+
+
+ <a-entity id="movingaction" text="text: " position="-7 4 -2" material="color: orange" scale="2"></a-entity>
+      
+      <a-box position="-2 0 0" material="transparent: true; opacity: 0.1; color:green;"></a-box>
+
+<a-camera foo geometry="primitive: box" aabb-collider="objects: .zone">
+  </a-camera>
+
+
+ <a-entity position="0 0 0"  wasd-controls>
+        <a-entity
+          position="0 1.7 0"
+          triggerbox="width:5; height:5; depth:5;"
+          camera
+          id="camera"
+          look-controls="enabled: true"
+        >
+        </a-entity>
+
+        <a-entity
+          aabb-collider="objects: .zone"
+          id="HitBoxGeometry"
+          position="0 0 0"
+          geometry="primitive: cylinder; height: 1; width: 1; depth: 1"
+          scale="0.3 5 0.3"
+          material="color: red"
+          size-change
+        ></a-entity>
+      </a-entity>
+
+
+<a-entity position="1 1.2 -5.3" >
+        <a-entity
+          
+          id="holotest2"
+          poi2
+          class="zone"
+          gltf-model="#holocircle"
+          scale="0.6 15 0.6"
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder; height: 3; "
+        ></a-entity>
+
+        <a-entity
+          id="Gpoi2"
+          
+             
+          
+          position="0 0.7 0.4"
+          layout="type: circle; angle: 45; radius: 0.8 "
+          rotation="-90 20 0"
+        >
+          <a-entity class="imageP2" mixin="image" material="opacity: 0.1; src: #olivier0; " animation__enter="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enter; dur: 800;"></a-entity>
+          <a-entity class="imageP2" mixin="image" material="opacity: 0.1; src: #olivier1; " animation__enter="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enter; dur: 800;"></a-entity>
+          <a-entity class="imageP2" mixin="image" material="opacity: 0.1; src: #olivier2; " animation__enter="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enter; dur: 800;"></a-entity>
+          <a-entity class="imageP2" mixin="image" material="opacity: 0.1; src: #olivier3; " animation__enter="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enter; dur: 800;"></a-entity>
+        </a-entity>
+      </a-entity>
+
+
+
+
+<a-entity position="0 1.2 -2.3"  >
+        <a-entity
+                  
+          visible ="false"
+          id="holotest"
+          poi1
+          gltf-model="#holocircle"
+          scale="0.6 15 0.6"
+          class="zone"
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder; height: 3; "
+        ></a-entity>
+
+        <a-entity
+                  id="poi1"
+                  visible="false"
+          position="0 0.7 0.4"
+          layout="type: circle; angle: 45; radius: 0.8 "
+          rotation="-90 20 0"
+        >
+          <a-entity mixin="image" material="src: #olivier3"></a-entity>
+          <a-entity mixin="image" material="src: #olivier0"></a-entity>
+          <a-entity mixin="image" material="src: #olivier1"></a-entity>
+          <a-entity mixin="image" material="src: #olivier2"></a-entity>
+        </a-entity>
+      </a-entity>

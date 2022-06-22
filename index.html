@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hand Tracking! • A-Frame</title>
+    <meta name="description" content="Hand Tracking! • A-Frame" />
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://rawgit.com/Utopiah/aframe-triggerbox-component/master/aframe-triggerbox-component.js"></script>
+    
+    <script src="https://unpkg.com/aframe-aabb-collider-component@^3.2.0/dist/aframe-aabb-collider-component.min.js"></script>
+    
+    
+
+    <script src="info-message.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.0/dist/aframe-environment-component.min.js"></script>
+    <script src="pinchable.js"></script>
+    <script src="color-change.js"></script>
+    <script src="slider.js"></script>
+    <script src="size-change.js"></script>
+    <script src="button.js"></script>
+    <script src="menu.js"></script>
+    <script src="zoneTrigger.js"></script>
+    <script src="pressable.js"></script>
+    <script src="event-manager.js"></script>
+    <script>
+  AFRAME.registerComponent("poi1", {
+    init: function() {
+      this.el.addEventListener("hitstart", (e) => {
+        console.log(e)
+        
+        var el;
+         
+        el = document.querySelector("#imageP1E0");
+        el.emit(`enterp1e0`, null, false);
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#imageP1E1");
+        el.emit(`enterp1e1`, null, false);
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#imageP1E2");
+        el.emit(`enterp1e2`, null, false);
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#imageP1E3");
+        el.emit(`enterp1e3`, null, false);
+        el.setAttribute("visible",true);
+
+        
+      })
+      this.el.addEventListener("hitend", (e) => {
+        console.log("EXIT")
+        
+        var el;
+         
+        el = document.querySelector("#imageP1E0");
+        el.emit(`exitp1e0`, null, false);
+       // setTimeout(function() {
+          el.setAttribute("visible",false);
+         // console.log("HEYYY");
+         // }, 200);
+        
+        
+        el = document.querySelector("#imageP1E1");
+        el.emit(`exitp1e1`, null, false);
+        el.setAttribute("visible",false);
+        
+        el = document.querySelector("#imageP1E2");
+        el.emit(`exitp1e2`, null, false);
+        el.setAttribute("visible",false);
+        
+        el = document.querySelector("#imageP1E3");
+        el.emit(`exitp1e3`, null, false);
+        el.setAttribute("visible",false);
+
+            //el.setAttribute("visible",false);
+      })
+    }
+  })
+      
+      
+       AFRAME.registerComponent("poi2", {
+    init: function() {
+      this.el.addEventListener("hitstart", (e) => {
+        console.log(e)
+        
+        var el;
+         
+        el = document.querySelector("#imageP2E0");
+        el.emit(`enterp2e0`, null, false);
+        
+        el = document.querySelector("#imageP2E1");
+        el.emit(`enterp2e1`, null, false);
+        
+        el = document.querySelector("#imageP2E2");
+        el.emit(`enterp2e2`, null, false);
+        
+        el = document.querySelector("#imageP2E3");
+        el.emit(`enterp2e3`, null, false);
+
+           // el.setAttribute("visible",true);
+      })
+      this.el.addEventListener("hitend", (e) => {
+        console.log("EXIT")
+        
+        var el;
+         
+        el = document.querySelector("#imageP2E0");
+        el.emit(`exitp2e0`, null, false);
+        
+        el = document.querySelector("#imageP2E1");
+        el.emit(`exitp2e1`, null, false);
+        
+        el = document.querySelector("#imageP2E2");
+        el.emit(`exitp2e2`, null, false);
+        
+        el = document.querySelector("#imageP2E3");
+        el.emit(`exitp2e3`, null, false);
+
+            //el.setAttribute("visible",false);
+      })
+    }
+  })
+
+</script>
+  </head>
+  <body>
+    
+    <a-scene info-message="htmlSrc: #messageText" enabled="true" debug="true">
+      <a-assets>
+        <a-asset-item id="messageText" src="message.html"></a-asset-item>
+        <a-asset-item
+          id="holocircle"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
+        ></a-asset-item>
+
+        <a-mixin
+          id="image"
+          geometry="primitive: plane; height: 0.5; width: 0.5"
+          material="shader: flat; transparent: true;  "
+          look-at="[camera]"
+        ></a-mixin>
+
+        <img
+          id="olivier0"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier0.jpg?v=1655718469685"
+        />
+        <img
+          id="olivier1"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier1.jpg?v=1655718468540"
+        />
+        <img
+          id="olivier2"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier2.jpg?v=1655718468677"
+        />
+        <img
+          id="olivier3"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier3.jpg?v=1655718469142"
+        />
+        
+        <a-mixin
+          id="imageCurved"
+          geometry="primitive: cylinder; openEnded: true; thetaLength: -50; radius: 2;"
+          material="shader: flat; transparent: true;  "
+          
+        ></a-mixin>
+
+        <img
+          id="olivier0C"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier0.jpg?v=1655718469685"
+        />
+        <img
+          id="olivier1C"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier1.jpg?v=1655718468540"
+        />
+        <img
+          id="olivier2C"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier2.jpg?v=1655718468677"
+        />
+        <img
+          id="olivier3C"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier3.jpg?v=1655718469142"
+        />
+      </a-assets>
+
+       <a-entity position="0 0 0" class="hitbox"  wasd-controls look-controls="enabled: true" >
+        <a-entity
+          position="0 1.7 0"
+          
+          camera
+          id="camera"
+          
+        >
+          <a-entity
+          
+          
+          aabb-collider="objects: .zone" 
+          id="HitBox"
+          class="hitbox"
+          position="0 0 0"
+          geometry="primitive: sphere; height: 1; width: 1; depth: 1"
+          scale="0.3 1 0.3"
+          material="color: red"
+          size-change
+        ></a-entity>
+        </a-entity>
+
+        
+      </a-entity>
+     
+  
+
+      <a-entity
+        id="movingaction"
+        text="text: "
+        position="-7 4 -2"
+        material="color: orange"
+        scale="2"
+      ></a-entity>
+
+      
+<!-- HOLO------------------------- -->
+      
+
+      
+      
+      <a-entity position="0 1.2 -2.3" >
+        <a-entity
+          
+          id="holotest1"
+          poi1
+          class="zone"
+          gltf-model="#holocircle"
+          scale="0.6 15 0.6"
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder; height: 3; "
+        ></a-entity>
+
+        <a-entity
+          id="Gpoi1"
+          
+             
+          
+          position="0 0.7 -0.5"
+          layout="type: circle; angle: 45; radius: 0.8 "
+          rotation="-90 20 0"
+        >
+          <a-entity visible="false" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier0; "
+          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"></a-entity>
+          <a-entity id="imageP1E1" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
+          animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e1; dur: 800;"
+          animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;"></a-entity>
+          <a-entity id="imageP1E2" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
+          <a-entity id="imageP1E3" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier3; " 
+          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
+          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;"></a-entity>
+        </a-entity>
+      </a-entity>
+      
+      
+      
+      
+      
+      
+      <a-entity position="1 1.2 -5.3" >
+        <a-entity
+          
+          id="holotest2"
+          poi2
+          class="zone"
+          gltf-model="#holocircle"
+          scale="0.6 15 0.6"
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder;  height: 3; "
+        ></a-entity>
+
+        <a-entity
+          id="Gpoi2"
+          
+             
+          
+          position="0 0.6 -0.5"
+          layout="type: circle; angle: 50; radius: 2 "
+          rotation="190 20 180"
+        >
+          <a-entity id="imageP2E0" mixin="imageCurved" material="opacity: 0.0; src: #olivier0C; "
+          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
+          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-entity>
+          <a-entity id="imageP2E1" mixin="imageCurved" material="opacity: 0.0; src: #olivier1C; " 
+          animation__enterp2e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e1; dur: 800;"
+          animation__exitp2e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e1; dur: 200;"></a-entity>
+          <a-entity id="imageP2E2" mixin="imageCurved" material="opacity: 0.0; src: #olivier2C; " 
+          animation__enterp2e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e2; dur: 800;"
+          animation__exitp2e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e2; dur: 200;"></a-entity>
+          <a-entity id="imageP2E3" mixin="imageCurved" material="opacity: 0.0; src: #olivier3C; " 
+          animation__enterp2e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e3; dur: 800;"
+          animation__exitp2e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e3; dur: 200;"></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <a-plane
+        hide-on-enter-ar
+        color="green"
+        height="100"
+        width="100"
+        rotation="-90 0 0"
+      ></a-plane>
+      <a-sky hide-on-enter-ar color="skyblue"></a-sky>
+      <a-entity hand-tracking-controls="hand: left"></a-entity>
+      <a-entity hand-tracking-controls="hand: right"></a-entity>
+      
+      
+      
+      
+      
+
+      <a-entity
+        id="boxGeometry"
+        position="1.2 2.0 -0.5"
+        rotation="45 45 0"
+        geometry="primitive: box; height: 0.6; width: 0.6; depth: 0.6"
+        material="color: #ff4b5c"
+        size-change
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="torusGeometry"
+        position="1.2 2.0 -0.5"
+        rotation="45 45 0"
+        geometry="primitive: torus; radius: 0.4; radius-tubular: 0.06"
+        material="color: #d2e603"
+        size-change
+        visible="false"
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="sphereGeometry"
+        position="1.2 2.0 -0.5"
+        rotation="45 45 0"
+        geometry="primitive: sphere; radius: 0.6;"
+        material="color: #fcdab7"
+        size-change
+        visible="false"
+        scale="0.5 0.5 0.5"
+      ></a-entity>
+      <a-entity
+        id="menu"
+        menu
+        position="0.8 1.5 -0.5"
+        rotation="-45 -90 0"
+        event-manager
+      >
+        <a-entity slider position="0 0.10 0"></a-entity>
+        <a-entity
+          id="sphereButton"
+          button="label: sphere"
+          position="-0.15 0 0"
+        ></a-entity>
+        <a-entity
+          id="boxButton"
+          button="label: box"
+          position="0 0 0"
+        ></a-entity>
+        <a-entity
+          id="torusButton"
+          button="label: torus"
+          position="0.15 0 0"
+        ></a-entity>
+        <!-- <a-entity
+          id="darkModeButton"
+          button="label: Dark Mode; width: 0.20; toggable: true"
+          position="0 -0.10 0"
+        ></a-entity>-->
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
