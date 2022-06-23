@@ -4,14 +4,16 @@
     <meta charset="utf-8" />
     <title>Hand Tracking! • A-Frame</title>
     <meta name="description" content="Hand Tracking! • A-Frame" />
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@744e2b869e281f840cff7d9cb02e95750ce90920/dist/aframe-master.min.js"></script>
+    
     <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://rawgit.com/Utopiah/aframe-triggerbox-component/master/aframe-triggerbox-component.js"></script>
     
     <script src="https://unpkg.com/aframe-aabb-collider-component@^3.2.0/dist/aframe-aabb-collider-component.min.js"></script>
-    
-    
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
 
     <script src="info-message.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.0/dist/aframe-environment-component.min.js"></script>
@@ -23,6 +25,8 @@
     <script src="menu.js"></script>
     <script src="zoneTrigger.js"></script>
     <script src="pressable.js"></script>
+    <script src="play-on-click.js"></script>
+    <script src="hide-on-play.js"></script>
     <script src="event-manager.js"></script>
     <script>
   AFRAME.registerComponent("poi1", {
@@ -44,7 +48,7 @@
         el.emit(`enterp1e2`, null, false);
         el.setAttribute("visible",true);
         
-        el = document.querySelector("#imageP1E3");
+        el = document.querySelector("#videoYoutube");
         el.emit(`enterp1e3`, null, false);
         el.setAttribute("visible",true);
 
@@ -71,7 +75,7 @@
         el.emit(`exitp1e2`, null, false);
         el.setAttribute("visible",false);
         
-        el = document.querySelector("#imageP1E3");
+        el = document.querySelector("#videoYoutube");
         el.emit(`exitp1e3`, null, false);
         el.setAttribute("visible",false);
 
@@ -137,12 +141,19 @@
         ></a-asset-item>
 
         <a-mixin
+          id="video"
+          geometry="primitive: plane; height: 0.5; width: 1"
+          material="shader: flat; "
+          look-at="[camera]"
+        ></a-mixin>
+         <video id="youtube" preload="auto" crossorigin="anonymous" muted autoplay loop="true" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/essai_protoAR.mp4?v=1655978926168"></video>
+        
+        <a-mixin
           id="image"
           geometry="primitive: plane; height: 0.5; width: 0.5"
           material="shader: flat; transparent: true;  "
           look-at="[camera]"
         ></a-mixin>
-
         <img
           id="olivier0"
           crossorigin="anonymous"
@@ -170,6 +181,8 @@
           material="shader: flat; transparent: true;  "
           
         ></a-mixin>
+        
+       
 
         <img
           id="olivier0C"
@@ -207,9 +220,9 @@
           aabb-collider="objects: .zone" 
           id="HitBox"
           class="hitbox"
-          position="0 0 0"
-          geometry="primitive: sphere; height: 1; width: 1; depth: 1"
-          scale="0.3 1 0.3"
+          position="0 -1 0"
+          geometry="primitive: sphere; height: 1; width: 0.5; depth: 0.5"
+          scale="0.1 0.5 0.1"
           material="color: red"
           size-change
         ></a-entity>
@@ -265,17 +278,20 @@
           <a-entity id="imageP1E2" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
           animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
           animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
-          <a-entity id="imageP1E3" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier3; " 
-          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
-          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;"></a-entity>
+          <a-entity play-on-click  id="videoYoutube" mixin="video" material="transparent: true; opacity: 0.0; src: #youtube; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
         </a-entity>
+        
       </a-entity>
       
       
+      <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
+          ></a-entity>
       
-      
-      
-      
+      <a-entity play-on-click position="-1 1.7 -1" id="videoYoutube3" mixin="video" material=" src: #youtube; " 
+          ></a-entity>
+     
       <a-entity position="1 1.2 -5.3" >
         <a-entity
           
