@@ -149,3 +149,38 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
           <a-entity mixin="image" material="src: #olivier2"></a-entity>
         </a-entity>
       </a-entity>
+
+
+
+
+
+
+
+ <a-entity crossorigin="anonymous" geometry="primitive:box;" position="0 -1.5 -5" material="shader:gif;src:url(https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/IMG_4848.GIF?v=1655987049857);color:green;opacity:.8"></a-entity>
+       <a-entity crossorigin="anonymous" geometry="primitive:plane;width:2;height:2;" position="-1.2 2.375 -1" material="shader:gif;src:url(https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/IMG_4848.GIF?v=1655987049857);color:orange;"></a-entity>
+      <a-entity id="imageP1E3" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier3; " 
+          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
+          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;"></a-entity>
+
+
+
+
+
+
+
+
+
+
+
+<a-entity
+          
+          
+           
+          id="HitBox"
+          class="hitbox"
+          position="0 0 0"
+          geometry="primitive: sphere; height: 1; width: 1; depth: 1"
+          scale="0.3 1 0.3"
+          material="color: red"
+          size-change
+        ></a-entity>
