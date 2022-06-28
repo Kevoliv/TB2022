@@ -29,17 +29,17 @@
     <script src="play-on-click.js"></script>
     <script src="hide-on-play.js"></script>
     <script src="event-manager.js"></script>
-    
-    
     <script>
-  AFRAME.registerComponent("poiimage", {
+  AFRAME.registerComponent("poi1", {
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
         var el;
          
-        
+        el = document.querySelector(".test");
+        el.emit(`enterp1e0`, null, false);
+        el.setAttribute("visible",true);
         
         el = document.querySelector("#imageP1E0");
         el.emit(`enterp1e0`, null, false);
@@ -53,7 +53,7 @@
         el.emit(`enterp1e2`, null, false);
         el.setAttribute("visible",true);
         
-        el = document.querySelector("#imageP1E3");
+        el = document.querySelector("#videoYoutube");
         el.emit(`enterp1e3`, null, false);
         el.setAttribute("visible",true);
 
@@ -86,7 +86,8 @@
 
             //el.setAttribute("visible",false);
         
-        
+        el = document.querySelector(".test");
+        el.emit(`exitp1e0`, null, false);
         
         el = document.querySelector("#imageP1E0");
         el.emit(`exitp1e0`, null, false);
@@ -97,27 +98,31 @@
         el = document.querySelector("#imageP1E2");
         el.emit(`exitp1e2`, null, false);
         
-        el = document.querySelector("#imageP1E3");
+        el = document.querySelector("#videoYoutube");
         el.emit(`exitp1e3`, null, false);
-        
-        
       })
     }
   })
       
       
-       AFRAME.registerComponent("poivideo", {
+       AFRAME.registerComponent("poi2", {
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
         var el;
          
-        el = document.querySelector("#videoYoutube");
+        el = document.querySelector("#imageP2E0");
         el.emit(`enterp2e0`, null, false);
-        el.setAttribute("visible",true);
         
+        el = document.querySelector("#imageP2E1");
+        el.emit(`enterp2e1`, null, false);
         
+        el = document.querySelector("#imageP2E2");
+        el.emit(`enterp2e2`, null, false);
+        
+        el = document.querySelector("#imageP2E3");
+        el.emit(`enterp2e3`, null, false);
 
            // el.setAttribute("visible",true);
       })
@@ -126,10 +131,18 @@
         
         var el;
          
-        el = document.querySelector("#videoYoutube");
+        el = document.querySelector("#imageP2E0");
         el.emit(`exitp2e0`, null, false);
         
+        el = document.querySelector("#imageP2E1");
+        el.emit(`exitp2e1`, null, false);
         
+        el = document.querySelector("#imageP2E2");
+        el.emit(`exitp2e2`, null, false);
+        
+        el = document.querySelector("#imageP2E3");
+        el.emit(`exitp2e3`, null, false);
+
             //el.setAttribute("visible",false);
       })
     }
@@ -137,17 +150,17 @@
       
       
       
-      AFRAME.registerComponent("poisound", {
+      AFRAME.registerComponent("poi3", {
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
         var el;
          
-       /*  el = document.querySelector(".test3");
+        el = document.querySelector(".test3");
         el.emit(`test3`, null, false);
         
-       el = document.querySelector("#imageP2E1");
+       /* el = document.querySelector("#imageP2E1");
         el.emit(`enterp2e1`, null, false);
         
         el = document.querySelector("#imageP2E2");
@@ -163,7 +176,7 @@
         
         var el;
          
-        /*el = document.querySelector("#imageP2E0");
+        el = document.querySelector("#imageP2E0");
         el.emit(`exitp2e0`, null, false);
         
         el = document.querySelector("#imageP2E1");
@@ -174,31 +187,34 @@
         
         el = document.querySelector("#imageP2E3");
         el.emit(`exitp2e3`, null, false);
-*/
+
             //el.setAttribute("visible",false);
       })
     }
   })
 
 </script>
-    
   </head>
   <body>
     
-    <a-scene  enabled="true" debug="true">
+    <a-scene info-message="htmlSrc: #messageText" enabled="true" debug="true">
       <a-assets>
-        
+        <a-asset-item id="messageText" src="message.html"></a-asset-item>
         <a-asset-item
           id="holocircle"
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
         ></a-asset-item>
 
-        
+        <a-mixin
+          id="video"
+          geometry="primitive: plane; height: 0.5; width: 1"
+          material="shader: flat; "
+          look-at="[camera]"
+        ></a-mixin>
          <video id="youtube" preload="auto" crossorigin="anonymous" muted autoplay loop="true" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/essai_protoAR.mp4?v=1655978926168"></video>
         
         
         <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/water.wav?v=1656335630714" preload="auto"></audio>
-        
         <a-mixin
           id="image"
           geometry="primitive: plane; height: 0.5; width: 0.5"
@@ -291,29 +307,24 @@
         material="color: orange"
         scale="2"
       ></a-entity>
-      
-      <a-box position="0 0 0" height="0.1" width="0.1" depth="0.1" >
-      </a-box>
 
       
 <!-- HOLO------------------------- -->
       
 
       
-      <!-- POI Image ----------------- -->
-      <a-entity position="1.6 1.2 -3.2" >
+      
+      <a-entity position="0 1.2 -2.3" >
         <a-entity
           
           id="holotest1"
-          poiimage
+          poi1
           class="zone"
           gltf-model="#holocircle"
           scale="0.6 15 0.6"
           
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
-                  
-         
         ></a-entity>
         
         <a-entity class="test" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
@@ -363,25 +374,22 @@
           
              
           
-          position="0 0.4 -0.5"
-          layout="type: circle; angle: 40; radius: 1.2 "
+          position="0 0.7 -0.5"
+          layout="type: circle; angle: 45; radius: 0.8 "
           rotation="-90 20 0"
-                  
-          
         >
-          <a-entity visible="false" class="pImage" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier0; "
+          <a-entity visible="false" class="test" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier0; "
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"></a-entity>
-          <a-entity id="imageP1E1" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
+          <a-entity id="imageP1E1" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
           animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e1; dur: 800;"
           animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;"></a-entity>
-          <a-entity id="imageP1E2" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
+          <a-entity id="imageP1E2" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
           animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
           animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
-          <a-entity id="imageP1E3" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier3; " 
-          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
-          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;"></a-entity>
-          
+          <a-entity play-on-click  id="videoYoutube" mixin="video" material="transparent: true; opacity: 0.0; src: #youtube; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
         </a-entity>
         
       </a-entity>
@@ -389,14 +397,15 @@
       
       <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
           ></a-entity>
-       
-      <!-- POI Video ----------------- -->
+      
+      <a-entity play-on-click position="-1 1.7 -1" id="videoYoutube3" mixin="video" material=" src: #youtube; " 
+          ></a-entity>
      
-      <a-entity position="0.5 0.1 -6.5" >
+      <a-entity position="1 0.1 -5.3" >
         <a-entity
           
-          id="holotestVideo"
-          poivideo
+          id="holotest2"
+          poi2
           class="zone"
           gltf-model="#holocircle"
           scale="0.6 1 0.6"
@@ -405,26 +414,38 @@
           geometry=" color: red; primitive: cylinder;  height: 3; "
         ></a-entity>
 
-        
-          <a-curvedimage play-on-click material="transparent: true; opacity: 0.3; src: #youtube; " id="videoYoutube" class="pVideo"  height="2.0" radius="4.0" theta-length="50" position="0 1.5 0"
-          rotation="0 170 0" scale="0.8 0.8 0.8"
-          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
-          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
-        
+        <a-entity
+          id="Gpoi2"
           
-        
+             
+          
+          position="0 0.6 -0.5"
+          layout="type: circle; angle: 50; radius: 2 "
+          rotation="190 20 180"
+        >
+          <a-entity sound="src: #water; autoplay: true;"></a-entity>
+          <a-entity id="imageP2E0" mixin="imageCurved" material="opacity: 0.0; src: #olivier0C; "
+          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
+          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-entity>
+          <a-entity id="imageP2E1" mixin="imageCurved" material="opacity: 0.0; src: #olivier1C; " 
+          animation__enterp2e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e1; dur: 800;"
+          animation__exitp2e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e1; dur: 200;"></a-entity>
+          <a-entity id="imageP2E2" mixin="imageCurved" material="opacity: 0.0; src: #olivier2C; " 
+          animation__enterp2e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e2; dur: 800;"
+          animation__exitp2e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e2; dur: 200;"></a-entity>
+          <a-entity id="imageP2E3" mixin="imageCurved" material="opacity: 0.0; src: #olivier3C; " 
+          animation__enterp2e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e3; dur: 800;"
+          animation__exitp2e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e3; dur: 200;"></a-entity>
+        </a-entity>
       </a-entity>
       
       
       
-      
-      
-      <!-- POI Sound ----------------- -->
-      <a-entity position="4.5 1.2 -5.3" >
+      <a-entity position="-1 1.2 -5.3" >
         <a-entity
           
-          id="holotestSound"
-          poisound
+          id="holotest3"
+          poi1
           class="zone"
           gltf-model="#holocircle"
           scale="0.6 15 0.6"
@@ -433,11 +454,11 @@
           geometry=" color: red; primitive: cylinder; height: 3; "
         ></a-entity>
         
-        <a-entity class="poiSound" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
+        <a-entity class="poi3" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
           
-          <a-entity class="poiSound" text="value: Avec fond;"   align="center" baseline="center" transparent="true" opacity="1.0"   position="0.375 0 0"
+          <a-entity class="poi3" text="value: Avec fond;"   align="center" baseline="center" transparent="true" opacity="1.0"   position="0.375 0 0"
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
         
@@ -445,7 +466,7 @@
         
         </a-entity>
         
-        <a-entity class="poiSound" text="value: Sans fond;" scale="2 2 2"  align="center" baseline="center" transparent="true" opacity="1.0"   position="0.9 0.3 -1"
+        <a-entity class="poi3" text="value: Sans fond;" scale="2 2 2"  align="center" baseline="center" transparent="true" opacity="1.0"   position="0.9 0.3 -1"
                   animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
           >
@@ -459,7 +480,7 @@
           
         </a-rounded>
         
-        <a-rounded class="poiSound" scale="1.2 1.2 1.2" transparent="true" position="0.5 -0.8 -1" rotation ="-20 -20 0" color="gray" width="0.4" height="0.5" radius="0.03"
+        <a-rounded class="poi3" scale="1.2 1.2 1.2" transparent="true" position="0.5 -0.8 -1" rotation ="-20 -20 0" color="gray" width="0.4" height="0.5" radius="0.03"
                    
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
@@ -471,11 +492,32 @@
         </a-rounded>
         
         
-        <a-entity sound="src: #water; autoplay: true;"></a-entity>
         
         
         
         
+        <a-entity
+          id="Gpoi3"
+          
+             
+          
+          position="0 0.7 -0.5"
+          layout="type: circle; angle: 45; radius: 0.8 "
+          rotation="-90 20 0"
+        >
+          <a-entity visible="true" class="poi3" id="imageP3E0" mixin="image" material="transparent: true; opacity: 1.0;  src: #olivier0; "
+          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: test3; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"></a-entity>
+          <a-entity id="imageP3E1" class="poi3" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
+          animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: test3; dur: 800;"
+          animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;"></a-entity>
+          <a-entity id="imageP3E2" class="poi3" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: test3; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
+          <a-entity play-on-click  id="videoYoutube4" mixin="video" material="transparent: true; opacity: 0.0; src: #youtube; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: test3; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
+        </a-entity>
         
       </a-entity>
       
