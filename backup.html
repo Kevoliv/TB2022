@@ -1,3 +1,8 @@
+ <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@744e2b869e281f840cff7d9cb02e95750ce90920/dist/aframe-master.min.js"></script>
+
+
+
+
 <a-entity
         id="boxGeometry"
         position="0 2.0 -1"
@@ -184,3 +189,28 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
           material="color: red"
           size-change
         ></a-entity>
+
+
+
+
+
+
+
+<a-entity
+          
+          id="Pin3D"
+          model-opacity="1"
+          
+          gltf-model="#1pin3D"
+          scale="1 1 1"
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder;  height: 3; "
+        
+                  
+          animation__enterpin2="attribute: model-opacity; from: 0; to: 1; startEvents: enterpin2; dur: 10000;"
+          animation__exitpin2="attribute: model-opacity; from: 1; to: 0; startEvents: exitpin2; dur: 10000;"
+          >
+        
+          
+          </a-entity>

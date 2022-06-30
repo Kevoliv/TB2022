@@ -5,12 +5,12 @@
     <title>Hand Tracking! • A-Frame</title>
     <meta name="description" content="Hand Tracking! • A-Frame" />
     
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@744e2b869e281f840cff7d9cb02e95750ce90920/dist/aframe-master.min.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     
     <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://rawgit.com/Utopiah/aframe-triggerbox-component/master/aframe-triggerbox-component.js"></script>
-    etiennepinchon/aframe-rounded/blob/master/dist/aframe-rounded-component.min.js
+    
     <script src="https://unpkg.com/aframe-aabb-collider-component@^3.2.0/dist/aframe-aabb-collider-component.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
@@ -22,16 +22,22 @@
     <script src="color-change.js"></script>
     <script src="slider.js"></script>
     <script src="size-change.js"></script>
+    <script src="model-opacity.js"></script>
     <script src="button.js"></script>
     <script src="menu.js"></script>
     <script src="zoneTrigger.js"></script>
     <script src="pressable.js"></script>
     <script src="play-on-click.js"></script>
     <script src="hide-on-play.js"></script>
-    <script src="event-manager.js"></script>
+    
     
     
     <script>
+      
+     
+      
+      
+      
   AFRAME.registerComponent("poiimage", {
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
@@ -39,7 +45,9 @@
         
         var el;
          
-        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`enterpin`, null, false);
+       // el.setAttribute("false",true);
         
         el = document.querySelector("#imageP1E0");
         el.emit(`enterp1e0`, null, false);
@@ -86,7 +94,9 @@
 
             //el.setAttribute("visible",false);
         
-        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`exitpin`, null, false);
+       // el.setAttribute("true",true);
         
         el = document.querySelector("#imageP1E0");
         el.emit(`exitp1e0`, null, false);
@@ -112,7 +122,12 @@
         console.log(e)
         
         var el;
-         
+        
+        /*el = document.querySelector("#Pin3D");
+        el.emit(`enterpin2`, null, false);*/
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`enterpin`, null, false);
+        
         el = document.querySelector("#videoYoutube");
         el.emit(`enterp2e0`, null, false);
         el.setAttribute("visible",true);
@@ -126,6 +141,12 @@
         
         var el;
          
+        /*el = document.querySelector("#Pin3D");
+        el.emit(`exitpin2`, null, false);*/
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`exitpin`, null, false);
+       // el.setAttribute("true",true);
+        
         el = document.querySelector("#videoYoutube");
         el.emit(`exitp2e0`, null, false);
         
@@ -193,6 +214,22 @@
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
         ></a-asset-item>
 
+        <a-asset-item
+          id="1pin3D"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol-2-150x125.gltf?v=1656494435069"
+        ></a-asset-item>
+        
+        <a-mixin
+          id="Pin"
+          geometry="primitive: plane; height: 2.0; width: 1.0"
+          material="shader: flat; alphaTest: 0.5 side: double; transparent: true;  "
+          look-at="[camera]"
+        ></a-mixin>
+        <img
+          id="pinImage"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol.png?v=1656495301859"
+        />
         
          <video id="youtube" preload="auto" crossorigin="anonymous" muted autoplay loop="true" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/essai_protoAR.mp4?v=1655978926168"></video>
         
@@ -202,7 +239,7 @@
         <a-mixin
           id="image"
           geometry="primitive: plane; height: 0.5; width: 0.5"
-          material="shader: flat; transparent: true;  "
+          material="shader: flat; alphaTest: 0.5 transparent: true;  "
           look-at="[camera]"
         ></a-mixin>
         <img
@@ -229,7 +266,7 @@
         <a-mixin
           id="imageCurved"
           geometry="primitive: cylinder; openEnded: true; thetaLength: -50; radius: 2;"
-          material="shader: flat; transparent: true;  "
+          material="shader: flat; alphaTest: 0.5 transparent: true;  "
           
         ></a-mixin>
         
@@ -301,22 +338,33 @@
 
       
       <!-- POI Image ----------------- -->
-      <a-entity position="1.6 1.2 -3.2" >
+      <a-entity position="1.6 0.1 -3.2" >
         <a-entity
           
           id="holotest1"
           poiimage
           class="zone"
           gltf-model="#holocircle"
-          scale="0.6 15 0.6"
+          
           
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
                   
          
-        ></a-entity>
+        >
+        <a-entity
+                  id="pinPoiImage"
+         mixin="Pin"
+        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        position="0 1.1 0"
         
-        <a-entity class="test" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
+        scale="3 3 3"  
+         
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 800;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 500;"></a-entity>
+        </a-entity>
+        
+        <a-entity  class="test" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 1.3 -1"
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
           animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
           
@@ -337,7 +385,7 @@
 
         <a-rounded scale="1.5 1.5 1.5" position="0.5 0.1 -1" rotation ="0 -20 0" color="gray" width="0.4" height="0.15" radius="0.03">
           
-          <a-entity text="value: Hello World;" position="0.58 0.08 0.01"  transparent="true" opacity="1.0"  
+          <a-entity text="value: Le conservationnsime;" position="0.58 0.08 0.01"  transparent="true" opacity="1.0"  
           ></a-entity>
           
         </a-rounded>
@@ -399,14 +447,46 @@
           poivideo
           class="zone"
           gltf-model="#holocircle"
-          scale="0.6 1 0.6"
+          
           
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder;  height: 3; "
-        ></a-entity>
-
+        >
+           <a-entity
+                  id="pinPoiVideo"
+         mixin="Pin"
+        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        position="0 1.1 0"
         
-          <a-curvedimage play-on-click material="transparent: true; opacity: 0.3; src: #youtube; " id="videoYoutube" class="pVideo"  height="2.0" radius="4.0" theta-length="50" position="0 1.5 0"
+        scale="3 3 3"  
+         
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
+        
+        </a-entity>
+
+        <a-entity rotation="0 40 0"  position="-2 1.7 -2.0">
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0" font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168" color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible="">
+</a-text>
+          
+        <a-entity class="Title" visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
+                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
+          > 
+        
+          </a-entity>
+        <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                  text="wrapCount: 30; width: 1.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                  position="-1.48 -0.0 -0.0" width="2.0" 
+                  height="1" 
+                  transparent="true"
+                  opacity="1.0"></a-entity>
+       
+          
+        </a-entity>
+        
+          <a-curvedimage play-on-click material="transparent: true; opacity: 0.3; src: #youtube; " id="videoYoutube" 
+                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
           rotation="0 170 0" scale="0.8 0.8 0.8"
           animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
           animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
@@ -432,6 +512,8 @@
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
         ></a-entity>
+        
+        
         
         <a-entity class="poiSound" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
