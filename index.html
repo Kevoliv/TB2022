@@ -34,6 +34,44 @@
     
     <script>
       
+AFRAME.registerComponent('event-manager-sound', {
+
+  init: function () {
+    this.bindMethods();
+
+    this.soundEl = document.querySelector('#Sound');
+    
+
+    this.playButtonEl = document.querySelector('#playSound');
+    
+
+    this.buttonToGeometry = {
+      'playButton': this.soundEl,
+      
+    };
+
+    this.playButtonEl.addEventListener('click', this.onClick);
+    
+    //this.playButtonEl.addState('pressed');
+  },
+
+  bindMethods: function () {
+    this.onClick = this.onClick.bind(this);
+  },
+
+  onClick: function (evt) {
+    var targetEl = evt.target;
+    if (targetEl === this.playButtonEl ) {
+      this.playButtonEl.removeState('pressed');
+      
+      this.soundEl.components.sound.playSound();
+      
+      //this.buttonToGeometry[targetEl.id].object3D.visible = true;
+    }
+
+    
+  }
+});
      
       
       
@@ -132,7 +170,11 @@
         el.emit(`enterp2e0`, null, false);
         el.setAttribute("visible",true);
         
+        el = document.querySelector(".Title");
+        el.emit(`entertext`, null, false);
         
+        el = document.querySelector(".description");
+        el.emit(`entertext`, null, false);
 
            // el.setAttribute("visible",true);
       })
@@ -149,6 +191,12 @@
         
         el = document.querySelector("#videoYoutube");
         el.emit(`exitp2e0`, null, false);
+        
+        el = document.querySelector(".Title");
+        el.emit(`exitext`, null, false);
+        
+        el = document.querySelector(".description");
+        el.emit(`exitext`, null, false);
         
         
             //el.setAttribute("visible",false);
@@ -466,12 +514,17 @@
         </a-entity>
 
         <a-entity rotation="0 40 0"  position="-2 1.7 -2.0">
-        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0" font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168" color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible="">
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0"
+                font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
+                font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
+                color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
+                animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
 </a-text>
           
-        <a-entity class="Title" visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
-                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
+        <a-entity  visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
+                  animation__entertext="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+          animation__exitext="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"
           > 
         
           </a-entity>
@@ -480,7 +533,11 @@
                   position="-1.48 -0.0 -0.0" width="2.0" 
                   height="1" 
                   transparent="true"
-                  opacity="1.0"></a-entity>
+                  opacity="1.0"
+                  class="description"
+                  animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"
+                  ></a-entity>
        
           
         </a-entity>
@@ -499,15 +556,108 @@
       
       
       
+      
+      
+      
+      
+      <!-- POI Video 2----------------- -->
+     
+      <a-entity position="-1.5 0.1 -4.5"  rotation="0 90 0" >
+        <a-entity
+          
+          id="holotestVideo2"
+          poivideo
+          class="zone"
+          gltf-model="#holocircle"
+          
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder;  height: 3; "
+        >
+           <a-entity
+                  id="pinPoiVideo2"
+         mixin="Pin"
+        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        position="0 1.1 0"
+        
+        scale="3 3 3"  
+         
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
+        
+        </a-entity>
+
+        <a-entity rotation="0 20 0"  position="-0.7 2.5 -3.0">
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0" font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168" color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible="">
+</a-text>
+          
+        <a-entity class="Title" visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
+                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
+          > 
+        
+          </a-entity>
+        <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                  text="wrapCount: 40; width: 2.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                  position="-1.48 -0.0 -0.0" 
+                  height="1" 
+                  transparent="true"
+                  opacity="1.0"></a-entity>
+       
+          
+        </a-entity>
+        
+          <a-curvedimage play-on-click material="transparent: true; opacity: 1.0; src: #youtube; " id="videoYoutube3" 
+                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
+          rotation="0 170 0" scale="0.8 0.8 0.8"
+          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
+          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
+        
+          
+        
+      </a-entity>
+      
+      
+      
+      
+      
+      
+      
       <!-- POI Sound ----------------- -->
-      <a-entity position="4.5 1.2 -5.3" >
+      <a-entity position="4.5 0.1 -5.3" >
+        
+        <a-entity
+        id="menu-sound"
+        menu
+        position="0.5 1.3 0.0"
+        rotation="-45 -90 0"
+        event-manager-sound
+      >
+        <a-entity slider position="0 0.10 0"></a-entity>
+        <a-entity
+          id="sphereButton2"
+          button="label: sphere"
+          position="-0.15 0 0"
+        ></a-entity>
+        <a-entity
+          id="playSound"
+          button="label: Play"
+          position="0 0 0"
+        ></a-entity>
+        <a-entity
+          id="torusButton2"
+          button="label: torus"
+          position="0.15 0 0"
+        ></a-entity>
+       
+      </a-entity>
         <a-entity
           
           id="holotestSound"
           poisound
           class="zone"
           gltf-model="#holocircle"
-          scale="0.6 15 0.6"
+          scale="0.6 0.6 0.6"
           
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
@@ -553,7 +703,7 @@
         </a-rounded>
         
         
-        <a-entity sound="src: #water; autoplay: true;"></a-entity>
+        <a-entity id="Sound" sound="src: #water; autoplay: false;"></a-entity>
         
         
         
@@ -576,8 +726,8 @@
         rotation="-90 0 0"
       ></a-plane>
       <a-sky hide-on-enter-ar color="skyblue"></a-sky>
-      <a-entity hand-tracking-controls="hand: left"></a-entity>
-      <a-entity hand-tracking-controls="hand: right"></a-entity>
+      <a-entity hand-tracking-controls="hand: left; " handmodelstyle=" highPoly"></a-entity>
+      <a-entity hand-tracking-controls="hand: right; handModelStyle: toon;"></a-entity>
       
       
       
