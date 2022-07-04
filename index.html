@@ -12,8 +12,8 @@
     <script src="https://rawgit.com/Utopiah/aframe-triggerbox-component/master/aframe-triggerbox-component.js"></script>
     
     <script src="https://unpkg.com/aframe-aabb-collider-component@^3.2.0/dist/aframe-aabb-collider-component.min.js"></script>
-    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
-    <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+    
+    
 
     <script src="info-message.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.0/dist/aframe-environment-component.min.js"></script>
@@ -33,6 +33,34 @@
     
     
     <script>
+      
+      
+      // Component to change to a sequential color on click.
+AFRAME.registerComponent('appearArrow', {
+  init: function () {
+    
+    
+    this.el.addEventListener('fusing', function (evt) {
+      
+      this.setAttribute('material', 'color', 'red');
+      console.log('I was clicked at: ', evt.detail.intersection.point);
+    });
+  }
+});
+    
+            // Component to change to a sequential color on click.
+AFRAME.registerComponent('hideArrow', {
+  init: function () {
+    var lastIndex = -1;
+    
+    this.el.addEventListener('fusing', function (evt) {
+      
+      this.setAttribute('material', 'color', 'green');
+      console.log('I was clicked at: ', evt.detail.intersection.point);
+    });
+  }
+});
+      
       
 AFRAME.registerComponent('event-manager-sound', {
 
@@ -169,6 +197,8 @@ AFRAME.registerComponent('event-manager-sound', {
         el = document.querySelector("#videoYoutube");
         el.emit(`enterp2e0`, null, false);
         el.setAttribute("visible",true);
+        el = document.querySelector("#arrowVideo");
+        el.setAttribute("visible",true);
         
         el = document.querySelector(".Title");
         el.emit(`entertext`, null, false);
@@ -188,6 +218,9 @@ AFRAME.registerComponent('event-manager-sound', {
         el = document.querySelector("#pinPoiVideo");
         el.emit(`exitpin`, null, false);
        // el.setAttribute("true",true);
+        
+        el = document.querySelector("#arrowVideo");
+        el.setAttribute("visible",false);
         
         el = document.querySelector("#videoYoutube");
         el.emit(`exitp2e0`, null, false);
@@ -260,6 +293,11 @@ AFRAME.registerComponent('event-manager-sound', {
         <a-asset-item
           id="holocircle"
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
+        ></a-asset-item>
+        
+        <a-asset-item
+          id="arrow"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Arrow_FBXImport_GLTFExport_Perso.gltf?v=1656936417596"
         ></a-asset-item>
 
         <a-asset-item
@@ -350,6 +388,24 @@ AFRAME.registerComponent('event-manager-sound', {
           id="camera"
           
         >
+          <a-entity cursor="fuse: true;"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: black; shader: flat">
+  </a-entity>
+          
+          <a-entity
+          id="arrowVideo"
+          look-at="#DirectionVideo"
+          gltf-model="#arrow"
+          scale="0.005 0.005 0.005"
+          rotation="0 0 -90"
+          position="0 -0.1 -0.5"
+                    visible="false"
+      ></a-entity>
+          
+          
+          
           <a-entity
           
           
@@ -358,16 +414,21 @@ AFRAME.registerComponent('event-manager-sound', {
           class="hitbox"
           position="0 -1 0"
           geometry="primitive: sphere; height: 1; width: 0.5; depth: 0.5"
-          scale="0.1 0.5 0.1"
+          scale="0.3 0.3 0.3"
           material="color: red"
           size-change
         ></a-entity>
         </a-entity>
 
         
+         
+         
+         
+         
+         
       </a-entity>
      
-  
+      
 
       <a-entity
         id="movingaction"
@@ -376,6 +437,10 @@ AFRAME.registerComponent('event-manager-sound', {
         material="color: orange"
         scale="2"
       ></a-entity>
+      
+      
+      
+       
       
       <a-box position="0 0 0" height="0.1" width="0.1" depth="0.1" >
       </a-box>
@@ -488,7 +553,7 @@ AFRAME.registerComponent('event-manager-sound', {
        
       <!-- POI Video ----------------- -->
      
-      <a-entity position="0.5 0.1 -6.5" >
+      <a-entity  position="0.5 0.1 -6.5" >
         <a-entity
           
           id="holotestVideo"
@@ -514,7 +579,7 @@ AFRAME.registerComponent('event-manager-sound', {
         </a-entity>
 
         <a-entity rotation="0 40 0"  position="-2 1.7 -2.0">
-        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0"
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="1.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
                 color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
@@ -548,7 +613,26 @@ AFRAME.registerComponent('event-manager-sound', {
           animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
           animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
         
-          
+         
+        <a-entity id="DirectionVideo" position="-1.92378 1.39885 -3.67469" 
+                  rotation="0.40851890792827694 -150.3567305138209 0.07964113352318443" 
+                  geometry="primitive: plane; height: 3; width: 8" material="side: double"
+                  cursor-listener
+                  
+                  >
+        </a-entity>
+        
+        
+        
+        
+        <a-entity class="hideArrow" position="-0.64037 2.02786 -1.43372" 
+                  rotation="0.40851890792827694 30.9758172781577 0.07964113352318443" 
+                  geometry="primitive: plane; height: 5.95; width: 8" material="side: double; color: red" hideArrow>
+        </a-entity>
+        <a-entity class="limitVideo" position="-0.290 1.4 -1.0" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
+                  geometry="primitive: sphere; radius: 2.9"
+          material="side: double" AppearArrow>
+        </a-entity>
         
       </a-entity>
       
@@ -726,8 +810,15 @@ AFRAME.registerComponent('event-manager-sound', {
         rotation="-90 0 0"
       ></a-plane>
       <a-sky hide-on-enter-ar color="skyblue"></a-sky>
-      <a-entity hand-tracking-controls="hand: left; " handmodelstyle=" highPoly"></a-entity>
-      <a-entity hand-tracking-controls="hand: right; handModelStyle: toon;"></a-entity>
+      <a-entity hand-tracking-controls="hand: left; ">
+        <a-sphere
+                  color="red" 
+                  radius="0.1"
+                  ></a-sphere>
+      </a-entity>
+      <a-entity hand-tracking-controls="hand: right; ">
+      
+      </a-entity>
       
       
       
