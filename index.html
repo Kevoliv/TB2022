@@ -68,6 +68,67 @@ AFRAME.registerComponent('arrowoff', {
 });
       
       
+      
+      
+      AFRAME.registerComponent('event-manager-video', {
+
+  init: function () {
+    this.bindMethods();
+
+    
+    var videoEl = document.querySelector("#videoSrc");
+        
+
+    this.playButtonEl = document.querySelector('#playVideo');
+    this.pauseButtonEl = document.querySelector('#pauseVideo');
+    this.repeatButtonEl = document.querySelector('#repeatVideo');
+    
+
+    this.buttonToGeometry = {
+      'playButton': videoEl,
+      
+    };
+
+    this.playButtonEl.addEventListener('click', this.onClick);
+    this.pauseButtonEl.addEventListener('click', this.onClick);
+    this.repeatButtonEl.addEventListener('click', this.onClick);
+    
+    //this.playButtonEl.addState('pressed');
+  },
+
+  bindMethods: function () {
+    this.onClick = this.onClick.bind(this);
+  },
+
+  onClick: function (evt) {
+    var targetEl = evt.target;
+    if (targetEl === this.playButtonEl ) {
+      this.playButtonEl.removeState('pressed');
+      
+      videoEl.play();
+      
+      //this.buttonToGeometry[targetEl.id].object3D.visible = true;
+    }
+    if (targetEl === this.pauseButtonEl ) {
+      this.pauseButtonEl.removeState('pressed');
+      
+      videoEl.pause();
+      
+      //this.buttonToGeometry[targetEl.id].object3D.visible = true;
+    }
+    if (targetEl === this.repeatButtonEl ) {
+      this.repeatButtonEl.removeState('pressed');
+      
+      videoEl.currentTime = 0;
+      
+      //this.buttonToGeometry[targetEl.id].object3D.visible = true;
+    }
+
+    
+  }
+});
+      
+      
 AFRAME.registerComponent('event-manager-sound', {
 
   init: function () {
@@ -197,12 +258,16 @@ AFRAME.registerComponent('event-manager-sound', {
         
         var el;
         
+        var videoEl = document.querySelector("#videoSrc");
+        videoEl.play();
+        //videoEl.components.video.play();
+        
         /*el = document.querySelector("#Pin3D");
         el.emit(`enterpin2`, null, false);*/
         el = document.querySelector("#pinPoiVideo");
         el.emit(`enterpin`, null, false);
         
-        el = document.querySelector("#videoYoutube");
+        el = document.querySelector("#videoCurv");
         el.emit(`enterp2e0`, null, false);
         el.setAttribute("visible",true);
         el = document.querySelector("#arrowVideo");
@@ -225,6 +290,10 @@ AFRAME.registerComponent('event-manager-sound', {
         console.log("EXIT")
         
         var el;
+        
+        var videoEl = document.querySelector("#videoSrc");
+        videoEl.pause();
+        videoEl.currentTime = 0;
          
         /*el = document.querySelector("#Pin3D");
         el.emit(`exitpin2`, null, false);*/
@@ -235,7 +304,7 @@ AFRAME.registerComponent('event-manager-sound', {
         el = document.querySelector("#arrowVideo");
         el.setAttribute("visible",false);
         
-        el = document.querySelector("#videoYoutube");
+        el = document.querySelector("#videoCurv");
         el.emit(`exitp2e0`, null, false);
         
         el = document.querySelector(".Title");
@@ -335,7 +404,7 @@ AFRAME.registerComponent('event-manager-sound', {
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol.png?v=1656495301859"
         />
         
-         <video id="youtube" preload="auto" crossorigin="anonymous" muted autoplay loop="true" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/essai_protoAR.mp4?v=1655978926168"></video>
+         <video id="videoSrc" preload="auto" crossorigin="anonymous"  loop="true" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-temple.mp4?v=1657034142061"></video>
         
         
         <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/water.wav?v=1656335630714" preload="auto"></audio>
@@ -349,17 +418,17 @@ AFRAME.registerComponent('event-manager-sound', {
         <img
           id="olivier0"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier0.jpg?v=1655718469685"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-1.jpg?v=1657034125040"
         />
         <img
           id="olivier1"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier1.jpg?v=1655718468540"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-2.jpg?v=1657034125060"
         />
         <img
           id="olivier2"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier2.jpg?v=1655718468677"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-3.jpg?v=1657034125329"
         />
         <img
           id="olivier3"
@@ -408,9 +477,10 @@ AFRAME.registerComponent('event-manager-sound', {
           
         >
             <a-entity cursor="fuse: true;"
-            position="0 0 -1"
+            position="0 0 -1.0"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: black; shader: flat">
+            material="color: black; shader: flat"
+            visible="false">
             </a-entity>
           
             <a-entity
@@ -420,7 +490,7 @@ AFRAME.registerComponent('event-manager-sound', {
             scale="0.005 0.005 0.005"
             rotation="0 0 -90"
             position="0 -0.1 -0.5"
-                      visible="false"
+            visible="false"
         
             ></a-entity>
           
@@ -432,8 +502,8 @@ AFRAME.registerComponent('event-manager-sound', {
             aabb-collider="objects: .zone" 
             id="HitBox"
             class="hitbox"
-            position="0 0.5 0"
-            geometry="primitive: sphere; height: 0.3; width: 0.3; depth: 0.3"
+            position="0 -0.5 0"
+            geometry="primitive: sphere; radius: 0.2;"
 
             material="color: blue"
             size-change
@@ -544,7 +614,7 @@ AFRAME.registerComponent('event-manager-sound', {
           
              
           
-          position="0 0.4 -0.5"
+          position="0 1.4 -0.5"
           layout="type: circle; angle: 40; radius: 1.2 "
           rotation="-90 20 0"
                   
@@ -568,12 +638,37 @@ AFRAME.registerComponent('event-manager-sound', {
       </a-entity>
       
       
-      <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
-          ></a-entity>
+      
        
-      <!-- POI Video ----------------- -->
+      <!-- POI Video <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
+          ></a-entity>----------------- -->
      
       <a-entity  position="0.5 0.1 -6.5" >
+        <a-entity id="menu-video" menu="" position="-0.25635 1.2 -0.5433" rotation="-45 17.73304375929898 0" event-manager-video="">
+          <a-entity slider="" position="0 0.1 0">
+            <a-entity geometry="height: 0.01; width: 0.5; depth: 0.01" material="color: white">
+            </a-entity>
+            <a-entity geometry="primitive: cylinder; radius: 0.02; height: 0.05" material="color: #3a50c5" pinchable="pinchDistance: 0.05" rotation="90 0 0" color-change="">
+            </a-entity>
+          <a-entity geometry="height: 0.01; width: 0.5; depth: 0.01" material="color: white"></a-entity><a-entity geometry="primitive: cylinder; radius: 0.02; height: 0.05" material="color: #3a50c5" pinchable="pinchDistance: 0.05" rotation="90 0 0" color-change=""></a-entity></a-entity>
+        <a-entity id="playVideo" button="label: Play" position="-0.09264 0.00059 -0.01044" geometry="width: 0.11; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
+          <a-entity position="0 0 0.02" text="color: white; align: center" scale="0.75 0.75 0.75">
+          </a-entity>
+        <a-entity position="0 0 0.02" text="value: Play; color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
+        <a-entity id="pauseVideo" button="label: Pause;" position="0.08569 0.00066 -0.00885" geometry="width: 0.11; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
+          <a-entity position="0 0 0.02" text="color: white; align: center" scale="0.75 0.75 0.75"></a-entity>
+          <a-entity position="0 0 0.02" text="value: Pause; color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
+        <a-entity id="repeatVideo" button="label: Recommencer; width: 0.230" position="-0.00622 -0.0716 -0.00763" geometry="width: 0.230; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
+          <a-entity position="0 0 0.02" text="color: white; align: center" scale="1.0 0.75 0.75"></a-entity>
+          <a-entity position="0 0 0.02032" text=" color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
+       
+      
+         
+        
+        <a-entity geometry="width: 0.6; height: 0.4; depth: 0.01" material="color: gray" position="0 0 -0.025"></a-entity></a-entity>
+        
+        
+        
         <a-entity
           
           id="holotestVideo"
@@ -599,7 +694,7 @@ AFRAME.registerComponent('event-manager-sound', {
         </a-entity>
 
         <a-entity rotation="0 40 0"  position="-2 1.7 -2.0">
-        <a-text position="-1.493 0.2 0" value="Le préservationnisme" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="1.0"
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="0.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
                 color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
@@ -607,27 +702,20 @@ AFRAME.registerComponent('event-manager-sound', {
                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
 </a-text>
           
-        <a-entity  visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
+        <a-entity  visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="0.0"   
                   animation__entertext="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
           animation__exitext="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"
           > 
         
           </a-entity>
-        <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
-                  text="wrapCount: 30; width: 1.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
-                  position="-1.48 -0.0 -0.0" width="2.0" 
-                  height="1" 
-                  transparent="true"
-                  opacity="1.0"
-                  class="description"
-                  animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
-                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"
-                  ></a-entity>
+       <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" text="wrapCount: 30; width: 1.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false; opacity: 0" position="-1.48 0 0" width="2.0" height="1" transparent="true" 
+                 opacity="0.0" class="description" animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
        
           
         </a-entity>
         
-          <a-curvedimage play-on-click material="transparent: true; opacity: 0.3; src: #youtube; " id="videoYoutube" 
+          <a-curvedimage  material="transparent: true; opacity: 0.0; src: #videoSrc; " id="videoCurv" 
                          class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
           rotation="0 170 0" scale="0.8 0.8 0.8"
           animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
@@ -642,14 +730,14 @@ AFRAME.registerComponent('event-manager-sound', {
                   >
         </a-entity>
         
+        1, y: -200000, z: 3000
         
         
-        
-        <a-entity class="ArrowOFF" position="-0.64037 2.02786 -1.43372" 
+        <a-entity class="ArrowOFF" position="1 -200000 3000" 
                   rotation="0.40851890792827694 30.9758172781577 0.07964113352318443" 
                   geometry="primitive: plane; height: 5.95; width: 8" material="side: double; color: red; transparent: true;" visible="false" arrowoff>
         </a-entity>
-        <a-entity class="ArrowON" position="-0.290 1.4 -1.0" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
+        <a-entity class="ArrowON" position="1 -200000 3000" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
                   geometry="primitive: sphere; radius: 2.9"
           material="side: double; transparent: true;" visible="false" arrowon>
         </a-entity>
@@ -684,7 +772,7 @@ AFRAME.registerComponent('event-manager-sound', {
       >
         <a-entity slider position="0 0.10 0"></a-entity>
         <a-entity
-          id="sphereButton2"
+          id="sphereButton23"
           button="label: sphere"
           position="-0.15 0 0"
         ></a-entity>
@@ -694,7 +782,7 @@ AFRAME.registerComponent('event-manager-sound', {
           position="0 0 0"
         ></a-entity>
         <a-entity
-          id="torusButton2"
+          id="torusButton32"
           button="label: torus"
           position="0.15 0 0"
         ></a-entity>
