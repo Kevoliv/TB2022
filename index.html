@@ -36,27 +36,33 @@
       
       
       // Component to change to a sequential color on click.
-AFRAME.registerComponent('appearArrow', {
+AFRAME.registerComponent('arrowon', {
   init: function () {
-    
-    
+     
     this.el.addEventListener('fusing', function (evt) {
-      
-      this.setAttribute('material', 'color', 'red');
-      console.log('I was clicked at: ', evt.detail.intersection.point);
+      var el;
+         
+        el = document.querySelector("#arrowVideo");
+        el.setAttribute("visible",true);
+     // this.setAttribute('material', 'color', 'red');
+      console.log('APPEAR');
     });
   }
+ 
 });
     
             // Component to change to a sequential color on click.
-AFRAME.registerComponent('hideArrow', {
+AFRAME.registerComponent('arrowoff', {
   init: function () {
     var lastIndex = -1;
     
     this.el.addEventListener('fusing', function (evt) {
-      
-      this.setAttribute('material', 'color', 'green');
-      console.log('I was clicked at: ', evt.detail.intersection.point);
+     var el;
+         
+        el = document.querySelector("#arrowVideo");
+        el.setAttribute("visible",false);
+      //this.setAttribute('material', 'color', 'green');
+      console.log('HIDE');
     });
   }
 });
@@ -177,6 +183,8 @@ AFRAME.registerComponent('event-manager-sound', {
         el.emit(`exitp1e3`, null, false);
         
         
+        
+        
       })
     }
   })
@@ -205,6 +213,11 @@ AFRAME.registerComponent('event-manager-sound', {
         
         el = document.querySelector(".description");
         el.emit(`entertext`, null, false);
+          
+        el = document.querySelector(".ArrowON");
+        el.setAttribute('position', { x: -0.290, y: 1.4, z: -1.0 });
+        el = document.querySelector(".ArrowOFF");
+        el.setAttribute('position', { x: -0.64037, y: 2.02786, z: -1.43372 });
 
            // el.setAttribute("visible",true);
       })
@@ -230,6 +243,11 @@ AFRAME.registerComponent('event-manager-sound', {
         
         el = document.querySelector(".description");
         el.emit(`exitext`, null, false);
+        
+        el = document.querySelector(".ArrowON");
+        el.setAttribute('position', { x: 1, y: -200000, z: 3000 });
+        el = document.querySelector(".ArrowOFF");
+        el.setAttribute('position', { x: 1, y: -200000, z: 3000 });
         
         
             //el.setAttribute("visible",false);
@@ -380,44 +398,46 @@ AFRAME.registerComponent('event-manager-sound', {
         />
       </a-assets>
 
-       <a-entity position="0 0 0" class="hitbox"  wasd-controls look-controls="enabled: true" >
+       <a-entity position="0 0 0" class="hitbox"   >
         <a-entity
           position="0 1.7 0"
-          
+           look-controls="enabled: true"
+                  wasd-controls
           camera
           id="camera"
           
         >
-          <a-entity cursor="fuse: true;"
+            <a-entity cursor="fuse: true;"
             position="0 0 -1"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
             material="color: black; shader: flat">
-  </a-entity>
+            </a-entity>
           
-          <a-entity
-          id="arrowVideo"
-          look-at="#DirectionVideo"
-          gltf-model="#arrow"
-          scale="0.005 0.005 0.005"
-          rotation="0 0 -90"
-          position="0 -0.1 -0.5"
-                    visible="false"
-      ></a-entity>
-          
-          
-          
-          <a-entity
+            <a-entity
+            id="arrowVideo"
+            look-at="#DirectionVideo"
+            gltf-model="#arrow"
+            scale="0.005 0.005 0.005"
+            rotation="0 0 -90"
+            position="0 -0.1 -0.5"
+                      visible="false"
+        
+            ></a-entity>
           
           
-          aabb-collider="objects: .zone" 
-          id="HitBox"
-          class="hitbox"
-          position="0 -1 0"
-          geometry="primitive: sphere; height: 1; width: 0.5; depth: 0.5"
-          scale="0.3 0.3 0.3"
-          material="color: red"
-          size-change
-        ></a-entity>
+          
+            <a-entity
+
+
+            aabb-collider="objects: .zone" 
+            id="HitBox"
+            class="hitbox"
+            position="0 0.5 0"
+            geometry="primitive: sphere; height: 0.3; width: 0.3; depth: 0.3"
+
+            material="color: blue"
+            size-change
+          ></a-entity>
         </a-entity>
 
         
@@ -442,7 +462,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
        
       
-      <a-box position="0 0 0" height="0.1" width="0.1" depth="0.1" >
+      <a-box position="0 0.1 0" height="0.1" width="0.1" depth="0.1" >
       </a-box>
 
       
@@ -618,20 +638,20 @@ AFRAME.registerComponent('event-manager-sound', {
                   rotation="0.40851890792827694 -150.3567305138209 0.07964113352318443" 
                   geometry="primitive: plane; height: 3; width: 8" material="side: double"
                   cursor-listener
-                  
+                  visible="false"
                   >
         </a-entity>
         
         
         
         
-        <a-entity class="hideArrow" position="-0.64037 2.02786 -1.43372" 
+        <a-entity class="ArrowOFF" position="-0.64037 2.02786 -1.43372" 
                   rotation="0.40851890792827694 30.9758172781577 0.07964113352318443" 
-                  geometry="primitive: plane; height: 5.95; width: 8" material="side: double; color: red" hideArrow>
+                  geometry="primitive: plane; height: 5.95; width: 8" material="side: double; color: red; transparent: true;" visible="false" arrowoff>
         </a-entity>
-        <a-entity class="limitVideo" position="-0.290 1.4 -1.0" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
+        <a-entity class="ArrowON" position="-0.290 1.4 -1.0" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
                   geometry="primitive: sphere; radius: 2.9"
-          material="side: double" AppearArrow>
+          material="side: double; transparent: true;" visible="false" arrowon>
         </a-entity>
         
       </a-entity>
@@ -644,62 +664,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
       
-      <!-- POI Video 2----------------- -->
-     
-      <a-entity position="-1.5 0.1 -4.5"  rotation="0 90 0" >
-        <a-entity
-          
-          id="holotestVideo2"
-          poivideo
-          class="zone"
-          gltf-model="#holocircle"
-          
-          
-          rotation="0 0 0"
-          geometry=" color: red; primitive: cylinder;  height: 3; "
-        >
-           <a-entity
-                  id="pinPoiVideo2"
-         mixin="Pin"
-        material="transparent: true; opacity: 1.0;  src: #pinImage;"
-        position="0 1.1 0"
-        
-        scale="3 3 3"  
-         
-         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
-         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
-        
-        </a-entity>
-
-        <a-entity rotation="0 20 0"  position="-0.7 2.5 -3.0">
-        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0" font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168" color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible="">
-</a-text>
-          
-        <a-entity class="Title" visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
-                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
-          > 
-        
-          </a-entity>
-        <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
-                  text="wrapCount: 40; width: 2.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
-                  position="-1.48 -0.0 -0.0" 
-                  height="1" 
-                  transparent="true"
-                  opacity="1.0"></a-entity>
-       
-          
-        </a-entity>
-        
-          <a-curvedimage play-on-click material="transparent: true; opacity: 1.0; src: #youtube; " id="videoYoutube3" 
-                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
-          rotation="0 170 0" scale="0.8 0.8 0.8"
-          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
-          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
-        
-          
-        
-      </a-entity>
+      
       
       
       
