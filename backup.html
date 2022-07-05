@@ -260,3 +260,76 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
             rotation="0 0 -90"
             position="0 0.5 0"
         ></a-entity>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- POI Video 2----------------- -->
+     
+      <a-entity position="-1.5 0.1 -4.5"  rotation="0 90 0" >
+        <a-entity
+          
+          id="holotestVideo2"
+          poivideo
+          class="zone"
+          gltf-model="#holocircle"
+          
+          
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder;  height: 3; "
+        >
+           <a-entity
+                  id="pinPoiVideo2"
+         mixin="Pin"
+        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        position="0 1.1 0"
+        
+        scale="3 3 3"  
+         
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
+        
+        </a-entity>
+
+        <a-entity rotation="0 20 0"  position="-0.7 2.5 -3.0">
+        <a-text position="-1.493 0.2 0" value="Le préservationnisme" class="Title" align="center" baseline="center" transparent="true" opacity="1.0" font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168" color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible="">
+</a-text>
+          
+        <a-entity class="Title" visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="1.0"   
+                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
+          > 
+        
+          </a-entity>
+        <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                  text="wrapCount: 40; width: 2.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                  position="-1.48 -0.0 -0.0" 
+                  height="1" 
+                  transparent="true"
+                  opacity="1.0"></a-entity>
+       
+          
+        </a-entity>
+        
+          <a-curvedimage play-on-click material="transparent: true; opacity: 1.0; src: #youtube; " id="videoYoutube3" 
+                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
+          rotation="0 170 0" scale="0.8 0.8 0.8"
+          animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
+          animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
+        
+          
+        
+      </a-entity>
