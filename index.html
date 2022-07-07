@@ -85,8 +85,10 @@ AFRAME.registerComponent('arrowoff', {
     
 
     this.buttonToGeometry = {
-      'playButton': videoEl,
-      
+      'playButton': this.playButtonEl,
+      'pauseButton': this.pauseButtonEl,
+      'repeatButton': this.repeatButtonEl,
+       
     };
 
     this.playButtonEl.addEventListener('click', this.onClick);
@@ -102,8 +104,9 @@ AFRAME.registerComponent('arrowoff', {
 
   onClick: function (evt) {
     var targetEl = evt.target;
-    if (targetEl === this.playButtonEl ) {
+    if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
+      
       
       videoEl.play();
       
@@ -128,6 +131,7 @@ AFRAME.registerComponent('arrowoff', {
   }
 });
       
+     
       
 AFRAME.registerComponent('event-manager-sound', {
 
@@ -156,8 +160,9 @@ AFRAME.registerComponent('event-manager-sound', {
 
   onClick: function (evt) {
     var targetEl = evt.target;
-    if (targetEl === this.playButtonEl ) {
+    if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
+    
       
       this.soundEl.components.sound.playSound();
       
@@ -171,7 +176,16 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
   AFRAME.registerComponent("poiimage", {
+    multiple: true,
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
@@ -186,16 +200,38 @@ AFRAME.registerComponent('event-manager-sound', {
         el.emit(`enterp1e0`, null, false);
         el.setAttribute("visible",true);
         
+        el = document.querySelector("#titleImage");
+        el.emit(`entertext`, null, false);
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#description0");
+        el.emit(`entertext`, null, false);
+        el.setAttribute("visible",true);
+        
         el = document.querySelector("#imageP1E1");
         el.emit(`enterp1e1`, null, false);
+        el.setAttribute("visible",true);
+        
+        
+        el = document.querySelector("#description1");
+        el.emit(`entertext`, null, false);
         el.setAttribute("visible",true);
         
         el = document.querySelector("#imageP1E2");
         el.emit(`enterp1e2`, null, false);
         el.setAttribute("visible",true);
         
+        el = document.querySelector("#description2");
+        el.emit(`entertext`, null, false);
+        el.setAttribute("visible",true);
+        
+        
         el = document.querySelector("#imageP1E3");
         el.emit(`enterp1e3`, null, false);
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#description3");
+        el.emit(`entertext`, null, false);
         el.setAttribute("visible",true);
 
         
@@ -234,14 +270,34 @@ AFRAME.registerComponent('event-manager-sound', {
         el = document.querySelector("#imageP1E0");
         el.emit(`exitp1e0`, null, false);
         
+        el = document.querySelector("#titleImage");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
+        
+        el = document.querySelector("#description0");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
+        
         el = document.querySelector("#imageP1E1");
         el.emit(`exitp1e1`, null, false);
+        
+        el = document.querySelector("#description1");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
         
         el = document.querySelector("#imageP1E2");
         el.emit(`exitp1e2`, null, false);
         
+        el = document.querySelector("#description2");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
+        
         el = document.querySelector("#imageP1E3");
         el.emit(`exitp1e3`, null, false);
+        
+        el = document.querySelector("#description3");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
         
         
         
@@ -252,6 +308,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
        AFRAME.registerComponent("poivideo", {
+         multiple: true,
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
@@ -275,6 +332,7 @@ AFRAME.registerComponent('event-manager-sound', {
         
         el = document.querySelector(".Title");
         el.emit(`entertext`, null, false);
+        
         
         el = document.querySelector(".description");
         el.emit(`entertext`, null, false);
@@ -327,6 +385,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
       AFRAME.registerComponent("poisound", {
+        multiple: true,
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
@@ -378,7 +437,7 @@ AFRAME.registerComponent('event-manager-sound', {
       <a-assets>
         
         <a-asset-item
-          id="holocircle"
+          id="holocircle2"
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
         ></a-asset-item>
         
@@ -404,15 +463,15 @@ AFRAME.registerComponent('event-manager-sound', {
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol.png?v=1656495301859"
         />
         
-         <video id="videoSrc" preload="auto" crossorigin="anonymous"  loop="true" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-temple.mp4?v=1657034142061"></video>
+         <video id="videoSrc" preload="auto" crossorigin="anonymous"  loop="true" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-temple_1.mp4?v=1657198438444"></video>
         
         
         <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/water.wav?v=1656335630714" preload="auto"></audio>
         
         <a-mixin
           id="image"
-          geometry="primitive: plane; height: 0.5; width: 0.5"
-          material="shader: flat; alphaTest: 0.5 transparent: true;  "
+          geometry="primitive: plane; height: 1.0; width: 1.0"
+          material="shader: flat; alphaTest: 0.5; transparent: true;  "
           look-at="[camera]"
         ></a-mixin>
         <img
@@ -433,7 +492,7 @@ AFRAME.registerComponent('event-manager-sound', {
         <img
           id="olivier3"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/olivier3.jpg?v=1655718469142"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-4.jpg?v=1657034125353"
         />
         
         <a-mixin
@@ -503,7 +562,7 @@ AFRAME.registerComponent('event-manager-sound', {
             id="HitBox"
             class="hitbox"
             position="0 -0.5 0"
-            geometry="primitive: sphere; radius: 0.2;"
+            geometry="primitive: sphere; radius: 0.1;"
 
             material="color: blue"
             size-change
@@ -540,21 +599,28 @@ AFRAME.registerComponent('event-manager-sound', {
       
 
       
-      <!-- POI Image ----------------- -->
+      <!-- POI Image gltf-model="#holocircle"  ----------------- -->
       <a-entity position="1.6 0.1 -3.2" >
+        
+        <a-entity id="ImageZone" rotation="90 0 0" position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
+          material="side: double"></a-entity>
+        
         <a-entity
           
           id="holotest1"
           poiimage
           class="zone"
-          gltf-model="#holocircle"
+          
           
           
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
-                  
-         
+                  material="opacity: 0.0; alpha-test: 0.5;"
+         visible="true"
         >
+          
+        
+        </a-entity>
         <a-entity
                   id="pinPoiImage"
          mixin="Pin"
@@ -563,46 +629,14 @@ AFRAME.registerComponent('event-manager-sound', {
         
         scale="3 3 3"  
          
-         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 800;"
-         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 500;"></a-entity>
-        </a-entity>
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
         
-        <a-entity  class="test" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 1.3 -1"
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
-          
-          <a-entity class="test" text="value: Avec fond;"   align="center" baseline="center" transparent="true" opacity="1.0"   position="0.375 0 0"
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
         
-          </a-entity>
-        
-        </a-entity>
-        
-        <a-entity class="test" text="value: Sans fond;" scale="2 2 2"  align="center" baseline="center" transparent="true" opacity="1.0"   position="0.9 0.3 -1"
-                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
-          >
-        
-          </a-entity>
 
-        <a-rounded scale="1.5 1.5 1.5" position="0.5 0.1 -1" rotation ="0 -20 0" color="gray" width="0.4" height="0.15" radius="0.03">
-          
-          <a-entity text="value: Le conservationnsime;" position="0.58 0.08 0.01"  transparent="true" opacity="1.0"  
-          ></a-entity>
-          
-        </a-rounded>
         
-        <a-rounded class="test" scale="1.2 1.2 1.2" transparent="true" position="0.5 -0.8 -1" rotation ="-20 -20 0" color="gray" width="0.4" height="0.5" radius="0.03"
-                   
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
-          
-          <a-entity  text=" wrapCount: 15; width: 0.35;  value: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ;" position="0.2 0.27 0.01" width="0.2" height="1" transparent="true" opacity="1.0"  
-          
-          ></a-entity>
-          
-        </a-rounded>
+        
+       
         
         
         
@@ -615,25 +649,73 @@ AFRAME.registerComponent('event-manager-sound', {
              
           
           position="0 1.4 -0.5"
-          layout="type: circle; angle: 40; radius: 1.2 "
+          layout="type: circle; angle: 40; radius: 1.7 "
           rotation="-90 20 0"
                   
           
         >
-          <a-entity visible="false" class="pImage" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier0; "
+          <a-entity visible="false" class="pImage" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier3; "
           animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"></a-entity>
-          <a-entity id="imageP1E1" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
-          animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e1; dur: 800;"
-          animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;"></a-entity>
-          <a-entity id="imageP1E2" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
-          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
-          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;"></a-entity>
-          <a-entity id="imageP1E3" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier3; " 
-          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
-          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;"></a-entity>
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
+          <a-entity id="description3" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: De plus, puisque tous les individus sont similaires, ils ne répondent pas aux besoins en habitat de la faune, qui a besoin d'arbres morts, de clairières, etc. Cette raréfaction des habitats provoque une perte de la biodiversité.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" alpha-test="0.5" width="1.0" height="1" transparent="true" opacity="0.0" material="alphaTest: 0.5"
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
           
-        </a-entity>
+          <a-entity id="imageP1E1" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier2; " 
+          animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e1; dur: 800;"
+          animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;">
+          <a-entity id="description2" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: Mais la monoculture cause un épuisement des éléments nutritifs dans le sol et une surpopulation des espèces qui s'en nourrissent (parasites, ravageurs, maladies). Les agriculteurs doivent recourir à des produits chimiques pour lutter contre ces envahisseurs, ce qui contamine les sols.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          
+          <a-entity id="imageP1E2" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;">
+          <a-entity id="description1" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; alphaTest: 0.5; width: 1.0; value: La monoculture est la pratique qui consiste à ne planter qu'une seule espèce sur une surface (comme un champ de blé). Cela permet de réduire les coûts de production et d'augmenter le rendement. ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          
+          <a-entity id="imageP1E3" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier0; " 
+          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
+          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;">
+            
+            <a-text position="-0.5 0.635 0" value="Le TITRE" id="titleImage"   transparent="true" 
+                opacity="1.0"
+                font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
+                font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
+                visible="false" color="White" negate="false" text=" opacity: 0.0; width: 2.5; align: left; baseline: top; side: double; anchor: left;" scale="" 
+                animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
+</a-text>
+            <a-entity id="description0" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: La biodiversité est une ressource limitée dont il faut faire un usage raisonné, respectueux des équilibres naturels et des rythmes de renouvellement des milieux.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false"  width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          </a-entity>
+        
+        
+        
+        
+        
         
       </a-entity>
       
@@ -644,7 +726,7 @@ AFRAME.registerComponent('event-manager-sound', {
           ></a-entity>----------------- -->
      
       <a-entity  position="0.5 0.1 -6.5" >
-        <a-entity id="menu-video" menu="" position="-0.25635 1.2 -0.5433" rotation="-45 17.73304375929898 0" event-manager-video="">
+        <a-entity id="menu-video" menu="" position="-0.25635 1.1 -0.5433" rotation="-45 17.73304375929898 0" event-manager-video="">
           <a-entity slider="" position="0 0.1 0">
             <a-entity geometry="height: 0.01; width: 0.5; depth: 0.01" material="color: white">
             </a-entity>
@@ -667,16 +749,17 @@ AFRAME.registerComponent('event-manager-sound', {
         
         <a-entity geometry="width: 0.6; height: 0.4; depth: 0.01" material="color: gray" position="0 0 -0.025"></a-entity></a-entity>
         
-        
+        <a-entity id="VideoZone" rotation="90 0 0" position="0 0 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
+          material="side: double"></a-entity>
         
         <a-entity
           
           id="holotestVideo"
           poivideo
           class="zone"
-          gltf-model="#holocircle"
           
           
+          material="opacity: 0.0; alpha-test: 0.5;"
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder;  height: 3; "
         >
@@ -730,7 +813,7 @@ AFRAME.registerComponent('event-manager-sound', {
                   >
         </a-entity>
         
-        1, y: -200000, z: 3000
+        
         
         
         <a-entity class="ArrowOFF" position="1 -200000 3000" 
@@ -788,56 +871,27 @@ AFRAME.registerComponent('event-manager-sound', {
         ></a-entity>
        
       </a-entity>
+        
+        <a-entity id="SoundZone" rotation="90 0 0" position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
+          material="side: double"></a-entity>
         <a-entity
           
           id="holotestSound"
           poisound
           class="zone"
-          gltf-model="#holocircle"
-          scale="0.6 0.6 0.6"
           
+          scale="0.6 0.6 0.6"
+          material="opacity: 0.0; alpha-test: 0.5;"
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
+                  
         ></a-entity>
         
         
         
-        <a-entity class="poiSound" scale="2 2 2" geometry="primitive: plane; height: 0.15; width: 0.4 " material="shader: flat; color: gray;"  transparent="true" look-at="[camera]" position="-0.8 0.3 -1"
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
-          
-          <a-entity class="poiSound" text="value: Avec fond;"   align="center" baseline="center" transparent="true" opacity="1.0"   position="0.375 0 0"
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
         
-          </a-entity>
         
-        </a-entity>
         
-        <a-entity class="poiSound" text="value: Sans fond;" scale="2 2 2"  align="center" baseline="center" transparent="true" opacity="1.0"   position="0.9 0.3 -1"
-                  animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;"
-          >
-        
-          </a-entity>
-
-        <a-rounded scale="1.5 1.5 1.5" position="0.5 0.1 -1" rotation ="0 -20 0" color="gray" width="0.4" height="0.15" radius="0.03">
-          
-          <a-entity text="value: Hello World;" position="0.58 0.08 0.01"  transparent="true" opacity="1.0"  
-          ></a-entity>
-          
-        </a-rounded>
-        
-        <a-rounded class="poiSound" scale="1.2 1.2 1.2" transparent="true" position="0.5 -0.8 -1" rotation ="-20 -20 0" color="gray" width="0.4" height="0.5" radius="0.03"
-                   
-          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
-          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
-          
-          <a-entity  text=" wrapCount: 15; width: 0.35;  value: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ;" position="0.2 0.27 0.01" width="0.2" height="1" transparent="true" opacity="1.0"  
-          
-          ></a-entity>
-          
-        </a-rounded>
         
         
         <a-entity id="Sound" sound="src: #water; autoplay: false;"></a-entity>
