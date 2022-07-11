@@ -34,6 +34,9 @@
     
     <script>
       
+
+      
+      
       
       // Component to change to a sequential color on click.
 AFRAME.registerComponent('arrowon', {
@@ -47,6 +50,7 @@ AFRAME.registerComponent('arrowon', {
      // this.setAttribute('material', 'color', 'red');
       console.log('APPEAR');
     });
+    
   }
  
 });
@@ -76,23 +80,18 @@ AFRAME.registerComponent('arrowoff', {
     this.bindMethods();
 
     
-    var videoEl = document.querySelector("#videoSrc");
+    this.videoEl = document.querySelector("#videoSrc");
         
 
     this.playButtonEl = document.querySelector('#playVideo');
-    this.pauseButtonEl = document.querySelector('#pauseVideo');
+    iconBtn
     this.repeatButtonEl = document.querySelector('#repeatVideo');
     
 
-    this.buttonToGeometry = {
-      'playButton': this.playButtonEl,
-      'pauseButton': this.pauseButtonEl,
-      'repeatButton': this.repeatButtonEl,
-       
-    };
+    
 
     this.playButtonEl.addEventListener('click', this.onClick);
-    this.pauseButtonEl.addEventListener('click', this.onClick);
+    
     this.repeatButtonEl.addEventListener('click', this.onClick);
     
     //this.playButtonEl.addState('pressed');
@@ -104,26 +103,41 @@ AFRAME.registerComponent('arrowoff', {
 
   onClick: function (evt) {
     var targetEl = evt.target;
+    var iconBtn = document.querySelector('#iconBtn');
     if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
       
+      if (this.videoEl.paused){
+        
+        console.log("PLAY");
+      this.videoEl.play();
+        iconBtn.setAttribute("material","src: #pauseBtn");
+        
+      }else{
+        
+        this.videoEl.pause();
+        iconBtn.setAttribute("material","src: #playBtn");
+      console.log("PAUSE");
+        
+      }
       
-      videoEl.play();
       
       //this.buttonToGeometry[targetEl.id].object3D.visible = true;
     }
     if (targetEl === this.pauseButtonEl ) {
       this.pauseButtonEl.removeState('pressed');
       
-      videoEl.pause();
-      
+      this.videoEl.pause();
+      console.log("PAUSE");
       //this.buttonToGeometry[targetEl.id].object3D.visible = true;
     }
     if (targetEl === this.repeatButtonEl ) {
       this.repeatButtonEl.removeState('pressed');
       
-      videoEl.currentTime = 0;
-      
+      this.videoEl.pause();
+      this.videoEl.currentTime = 0;
+      iconBtn.setAttribute("material","src: #playBtn");
+      console.log("REPEAT");
       //this.buttonToGeometry[targetEl.id].object3D.visible = true;
     }
 
@@ -131,7 +145,7 @@ AFRAME.registerComponent('arrowoff', {
   }
 });
       
-     
+     var isPlaying = true;
       
 AFRAME.registerComponent('event-manager-sound', {
 
@@ -142,14 +156,13 @@ AFRAME.registerComponent('event-manager-sound', {
     
 
     this.playButtonEl = document.querySelector('#playSound');
+    this.repeatButtonEl = document.querySelector('#repeatSound');
     
 
-    this.buttonToGeometry = {
-      'playButton': this.soundEl,
-      
-    };
+   
 
     this.playButtonEl.addEventListener('click', this.onClick);
+    this.repeatButtonEl.addEventListener('click', this.onClick);
     
     //this.playButtonEl.addState('pressed');
   },
@@ -160,12 +173,39 @@ AFRAME.registerComponent('event-manager-sound', {
 
   onClick: function (evt) {
     var targetEl = evt.target;
+    var iconBtn = document.querySelector('#iconBtnSound');
+    
+    
     if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
-    
       
+      if (isPlaying == false){
+        
+        console.log("PLAY");
       this.soundEl.components.sound.playSound();
+        iconBtn.setAttribute("material","src: #pauseBtn");
+        isPlaying = true;
+        
+      }else{
+        
+        this.soundEl.components.sound.pauseSound();
+        iconBtn.setAttribute("material","src: #playBtn");
+      console.log("PAUSE");
+        isPlaying = false;
+        
+      }
+     
       
+      
+      //this.buttonToGeometry[targetEl.id].object3D.visible = true;
+    }
+    
+     if (targetEl === this.repeatButtonEl ) {
+      this.repeatButtonEl.removeState('pressed');
+      
+      this.soundEl.components.sound.stopSound();
+       iconBtn.setAttribute("material","src: #playBtn");
+      console.log("REPEAT");
       //this.buttonToGeometry[targetEl.id].object3D.visible = true;
     }
 
@@ -191,10 +231,22 @@ AFRAME.registerComponent('event-manager-sound', {
         console.log(e)
         
         var el;
+        
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`enterpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`enterpin`, null, false);
+        
          
         el = document.querySelector("#pinPoiImage");
         el.emit(`enterpin`, null, false);
        // el.setAttribute("false",true);
+        
+        el = document.querySelector("#VideoZone");
+        el.emit(`entercolor`, null, false);
+        el = document.querySelector("#SoundZone");
+        el.emit(`entercolor`, null, false);
         
         el = document.querySelector("#imageP1E0");
         el.emit(`enterp1e0`, null, false);
@@ -240,6 +292,17 @@ AFRAME.registerComponent('event-manager-sound', {
         console.log("EXIT")
         
         var el;
+        
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#VideoZone");
+        el.emit(`exitcolor`, null, false);
+        el = document.querySelector("#SoundZone");
+        el.emit(`exitcolor`, null, false);
        /*  
         el = document.querySelector("#imageP1E0");
         el.emit(`exitp1e0`, null, false);
@@ -317,7 +380,22 @@ AFRAME.registerComponent('event-manager-sound', {
         
         var videoEl = document.querySelector("#videoSrc");
         videoEl.play();
-        //videoEl.components.video.play();
+        var iconBtn = document.querySelector('#iconBtn');
+        iconBtn.setAttribute("material","src: #pauseBtn");
+        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`enterpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`enterpin`, null, false);
+        
+        el = document.querySelector("#ImageZone");
+        el.emit(`entercolor`, null, false);
+        el = document.querySelector("#SoundZone");
+        el.emit(`entercolor`, null, false);
+        
+        el = document.querySelector("#menu-video");
+        el.setAttribute("visible",true);
         
         /*el = document.querySelector("#Pin3D");
         el.emit(`enterpin2`, null, false);*/
@@ -347,12 +425,30 @@ AFRAME.registerComponent('event-manager-sound', {
       this.el.addEventListener("hitend", (e) => {
         console.log("EXIT")
         
+        var iconBtn = document.querySelector('#iconBtn');
+        iconBtn.setAttribute("material","src: #playBtn");
+        
         var el;
+        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#ImageZone");
+        el.emit(`exitcolor`, null, false);
+        el = document.querySelector("#SoundZone");
+        el.emit(`exitcolor`, null, false);
         
         var videoEl = document.querySelector("#videoSrc");
         videoEl.pause();
         videoEl.currentTime = 0;
-         
+        
+         el = document.querySelector("#menu-video");
+        el.setAttribute("visible",false);
+        
+        
         /*el = document.querySelector("#Pin3D");
         el.emit(`exitpin2`, null, false);*/
         el = document.querySelector("#pinPoiVideo");
@@ -390,8 +486,30 @@ AFRAME.registerComponent('event-manager-sound', {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
+        var soundEl = document.querySelector("#Sound");
+        soundEl.components.sound.playSound();
+        var iconBtn = document.querySelector('#iconBtnSound');
+        iconBtn.setAttribute("material","src: #pauseBtn");
+        
         var el;
          
+        el = document.querySelector("#ImageZone");
+        el.emit(`entercolor`, null, false);
+        el = document.querySelector("#VideoZone");
+        el.emit(`entercolor`, null, false);
+        
+        
+        el = document.querySelector("#menu-sound");
+        el.setAttribute("visible",true);
+        
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`enterpin`, null, false);
+        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`enterpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`enterpin`, null, false);
        /*  el = document.querySelector(".test3");
         el.emit(`test3`, null, false);
         
@@ -409,8 +527,29 @@ AFRAME.registerComponent('event-manager-sound', {
       this.el.addEventListener("hitend", (e) => {
         console.log("EXIT")
         
+        var soundEl = document.querySelector("#Sound");
+        soundEl.components.sound.stopSound();
+        var iconBtn = document.querySelector('#iconBtnSound');
+        iconBtn.setAttribute("material","src: #pauseBtn");
+        
         var el;
          
+        el = document.querySelector("#menu-sound");
+        el.setAttribute("visible",false);
+        
+        el = document.querySelector("#pinPoiVideo");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#pinPoiImage");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#pinPoiSound");
+        el.emit(`exitpin`, null, false);
+        
+        el = document.querySelector("#VideoZone");
+        el.emit(`exitcolor`, null, false);
+        el = document.querySelector("#ImageZone");
+        el.emit(`exitcolor`, null, false);
         /*el = document.querySelector("#imageP2E0");
         el.emit(`exitp2e0`, null, false);
         
@@ -422,6 +561,8 @@ AFRAME.registerComponent('event-manager-sound', {
         
         el = document.querySelector("#imageP2E3");
         el.emit(`exitp2e3`, null, false);
+        
+        
 */
             //el.setAttribute("visible",false);
       })
@@ -441,6 +582,26 @@ AFRAME.registerComponent('event-manager-sound', {
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/scene.gltf?v=1655714168184"
         ></a-asset-item>
         
+        <a-mixin
+          id="btn"
+          geometry="primitive: plane; height: 0.05; width: 0.05"
+          material="shader: flat; alphaTest: 0.5 side: double; transparent: true;  "
+        ></a-mixin>
+        
+         <img
+          id="playBtn"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/PlayButton.png?v=1657542151955"
+          crossorigin="anonymous"/>
+        <img
+          id="repeatBtn"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/repeatButton.png?v=1657540907184"
+          crossorigin="anonymous"/>
+        <img
+          id="pauseBtn"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/pauseButton.png?v=1657540907183"
+          crossorigin="anonymous"/>
+        
+        
         <a-asset-item
           id="arrow"
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Arrow_FBXImport_GLTFExport_Perso.gltf?v=1656936417596"
@@ -450,6 +611,9 @@ AFRAME.registerComponent('event-manager-sound', {
           id="1pin3D"
           src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol-2-150x125.gltf?v=1656494435069"
         ></a-asset-item>
+        
+        
+        
         
         <a-mixin
           id="Pin"
@@ -466,7 +630,7 @@ AFRAME.registerComponent('event-manager-sound', {
          <video id="videoSrc" preload="auto" crossorigin="anonymous"  loop="true" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-temple_1.mp4?v=1657198438444"></video>
         
         
-        <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/water.wav?v=1656335630714" preload="auto"></audio>
+        <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-machine-temps.wav?v=1657532554784" preload="auto"></audio>
         
         <a-mixin
           id="image"
@@ -539,7 +703,7 @@ AFRAME.registerComponent('event-manager-sound', {
             position="0 0 -1.0"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
             material="color: black; shader: flat"
-            visible="false">
+            visible="true">
             </a-entity>
           
             <a-entity
@@ -548,7 +712,7 @@ AFRAME.registerComponent('event-manager-sound', {
             gltf-model="#arrow"
             scale="0.005 0.005 0.005"
             rotation="0 0 -90"
-            position="0 -0.1 -0.5"
+            position="0 -0.05 -0.5"
             visible="false"
         
             ></a-entity>
@@ -561,8 +725,8 @@ AFRAME.registerComponent('event-manager-sound', {
             aabb-collider="objects: .zone" 
             id="HitBox"
             class="hitbox"
-            position="0 -0.5 0"
-            geometry="primitive: sphere; radius: 0.1;"
+            position="0 -0.5 0.3"
+            geometry="primitive: sphere; radius: 0.01;"
 
             material="color: blue"
             size-change
@@ -600,10 +764,16 @@ AFRAME.registerComponent('event-manager-sound', {
 
       
       <!-- POI Image gltf-model="#holocircle"  ----------------- -->
-      <a-entity position="1.6 0.1 -3.2" >
+      <a-entity id="Poi-Image" position="1.6 0.1 -3.2"  >
         
-        <a-entity id="ImageZone" rotation="90 0 0" position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-          material="side: double"></a-entity>
+        <a-entity id="ImageZone" rotation="90 0 0"
+                  position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.9; radiusOuter: 1"
+          material="side: double; color: white;"
+                  
+                  
+                  animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
+                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+          ></a-entity>
         
         <a-entity
           
@@ -725,32 +895,35 @@ AFRAME.registerComponent('event-manager-sound', {
       <!-- POI Video <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
           ></a-entity>----------------- -->
      
-      <a-entity  position="0.5 0.1 -6.5" >
-        <a-entity id="menu-video" menu="" position="-0.25635 1.1 -0.5433" rotation="-45 17.73304375929898 0" event-manager-video="">
-          <a-entity slider="" position="0 0.1 0">
-            <a-entity geometry="height: 0.01; width: 0.5; depth: 0.01" material="color: white">
-            </a-entity>
-            <a-entity geometry="primitive: cylinder; radius: 0.02; height: 0.05" material="color: #3a50c5" pinchable="pinchDistance: 0.05" rotation="90 0 0" color-change="">
-            </a-entity>
-          <a-entity geometry="height: 0.01; width: 0.5; depth: 0.01" material="color: white"></a-entity><a-entity geometry="primitive: cylinder; radius: 0.02; height: 0.05" material="color: #3a50c5" pinchable="pinchDistance: 0.05" rotation="90 0 0" color-change=""></a-entity></a-entity>
-        <a-entity id="playVideo" button="label: Play" position="-0.09264 0.00059 -0.01044" geometry="width: 0.11; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
-          <a-entity position="0 0 0.02" text="color: white; align: center" scale="0.75 0.75 0.75">
-          </a-entity>
-        <a-entity position="0 0 0.02" text="value: Play; color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
-        <a-entity id="pauseVideo" button="label: Pause;" position="0.08569 0.00066 -0.00885" geometry="width: 0.11; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
-          <a-entity position="0 0 0.02" text="color: white; align: center" scale="0.75 0.75 0.75"></a-entity>
-          <a-entity position="0 0 0.02" text="value: Pause; color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
-        <a-entity id="repeatVideo" button="label: Recommencer; width: 0.230" position="-0.00622 -0.0716 -0.00763" geometry="width: 0.230; height: 0.05; depth: 0.04" material="color: #3a50c5" pressable="">
-          <a-entity position="0 0 0.02" text="color: white; align: center" scale="1.0 0.75 0.75"></a-entity>
-          <a-entity position="0 0 0.02032" text=" color: white; align: center" scale="0.75 0.75 0.75"></a-entity></a-entity>
-       
-      
-         
+      <a-entity id="Poi-Video" position="-0.5 0.1 -1.5" >
+        <a-entity id="menu-video" menu=""  position="-0.25635 1.1 -0.5433" visible="false" rotation="-45 17.73304375929898 0" 
+                  event-manager-video=""
+                  animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
+        >
+          
+        <a-entity id="playVideo" button=""  position="-0.06 0.0 -0.01"  pressable="">
+          
+          <a-entity id="iconBtn" mixin="btn" rotation="90 0 0" position="0.0 -0.011 0.0" material="src: #playBtn">
+        </a-entity >
         
-        <a-entity geometry="width: 0.6; height: 0.4; depth: 0.01" material="color: gray" position="0 0 -0.025"></a-entity></a-entity>
+          </a-entity>
+        
+        <a-entity id="repeatVideo" button="" position="0.06 0.0 -0.01"  pressable="">
+          
+          <a-entity  mixin="btn" rotation="90 0 0" position="0.0 -0.011 0.0" material="src: #repeatBtn">
+        </a-entity >
+          
+          </a-entity>
+       </a-entity>
         
         <a-entity id="VideoZone" rotation="90 0 0" position="0 0 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-          material="side: double"></a-entity>
+          material="side: double; color: white;"
+                  
+                  animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
+                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+                  
+                  ></a-entity>
         
         <a-entity
           
@@ -844,48 +1017,66 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
       <!-- POI Sound ----------------- -->
-      <a-entity position="4.5 0.1 -5.3" >
+      <a-entity id="Poi-Sound" position="4.5 0.1 -5.3" >
         
-        <a-entity
-        id="menu-sound"
-        menu
-        position="0.5 1.3 0.0"
-        rotation="-45 -90 0"
-        event-manager-sound
-      >
-        <a-entity slider position="0 0.10 0"></a-entity>
-        <a-entity
-          id="sphereButton23"
-          button="label: sphere"
-          position="-0.15 0 0"
-        ></a-entity>
-        <a-entity
-          id="playSound"
-          button="label: Play"
-          position="0 0 0"
-        ></a-entity>
-        <a-entity
-          id="torusButton32"
-          button="label: torus"
-          position="0.15 0 0"
-        ></a-entity>
-       
-      </a-entity>
         
-        <a-entity id="SoundZone" rotation="90 0 0" position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-          material="side: double"></a-entity>
+        
+        
+        <a-entity id="menu-sound" menu=""  position="-0.25635 1.1 -0.5433" visible="false" rotation="-45 17.73304375929898 0" 
+                  event-manager-sound
+                  animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
+        >
+          
+        <a-entity id="playSound" button=""  position="-0.06 0.0 -0.01"  pressable="">
+          
+          <a-entity id="iconBtnSound" mixin="btn" rotation="90 0 0" position="0.0 -0.011 0.0" material="src: #playBtn">
+        </a-entity >
+        
+          </a-entity>
+        
+        <a-entity id="repeatSound" button="" position="0.06 0.0 -0.01"  pressable="">
+          
+          <a-entity  mixin="btn" rotation="90 0 0" position="0.0 -0.011 0.0" material="src: #repeatBtn">
+        </a-entity >
+          
+          </a-entity>
+       </a-entity>
+        
+        <a-entity id="SoundZone" rotation="90 0 0" position="0 -0.09 0"
+                  geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
+          material="side: double; color: white;"
+                  
+                  animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
+                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+                  
+                  ></a-entity>
         <a-entity
           
           id="holotestSound"
           poisound
           class="zone"
           
-          scale="0.6 0.6 0.6"
+          
           material="opacity: 0.0; alpha-test: 0.5;"
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder; height: 3; "
                   
-        ></a-entity>
+        >
+        
+        <a-entity
+                  id="pinPoiSound"
+         mixin="Pin"
+        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        position="0 1.1 0"
+        
+        scale="3 3 3"  
+         
+         animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
+        
+        
+        </a-entity>
         
         
         
@@ -932,64 +1123,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
 
-      <a-entity
-        id="boxGeometry"
-        position="1.2 2.0 -0.5"
-        rotation="45 45 0"
-        geometry="primitive: box; height: 0.6; width: 0.6; depth: 0.6"
-        material="color: #ff4b5c"
-        size-change
-        scale="0.5 0.5 0.5"
-      ></a-entity>
-      <a-entity
-        id="torusGeometry"
-        position="1.2 2.0 -0.5"
-        rotation="45 45 0"
-        geometry="primitive: torus; radius: 0.4; radius-tubular: 0.06"
-        material="color: #d2e603"
-        size-change
-        visible="false"
-        scale="0.5 0.5 0.5"
-      ></a-entity>
-      <a-entity
-        id="sphereGeometry"
-        position="1.2 2.0 -0.5"
-        rotation="45 45 0"
-        geometry="primitive: sphere; radius: 0.6;"
-        material="color: #fcdab7"
-        size-change
-        visible="false"
-        scale="0.5 0.5 0.5"
-      ></a-entity>
-      <a-entity
-        id="menu"
-        menu
-        position="0.8 1.5 -0.5"
-        rotation="-45 -90 0"
-        event-manager
-      >
-        <a-entity slider position="0 0.10 0"></a-entity>
-        <a-entity
-          id="sphereButton"
-          button="label: sphere"
-          position="-0.15 0 0"
-        ></a-entity>
-        <a-entity
-          id="boxButton"
-          button="label: box"
-          position="0 0 0"
-        ></a-entity>
-        <a-entity
-          id="torusButton"
-          button="label: torus"
-          position="0.15 0 0"
-        ></a-entity>
-        <!-- <a-entity
-          id="darkModeButton"
-          button="label: Dark Mode; width: 0.20; toggable: true"
-          position="0 -0.10 0"
-        ></a-entity>-->
-      </a-entity>
+      
     </a-scene>
   </body>
 </html>

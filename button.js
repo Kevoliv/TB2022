@@ -1,7 +1,8 @@
 /* global AFRAME */
 AFRAME.registerComponent('button', {
   schema: {
-    label: {default: 'label'},
+    label: {default: ''},
+    image: {default: ' '},
     width: {default: 0.11},
     toggable: {default: false}
   },
@@ -9,23 +10,24 @@ AFRAME.registerComponent('button', {
     var el = this.el;
     var labelEl = this.labelEl = document.createElement('a-entity');
 
-    this.color = '#3a50c5';
+    this.color = '#5B5B5B';
     el.setAttribute('geometry', {
-      primitive: 'box',
-      width: this.data.width,
-      height: 0.05,
-      depth: 0.04
+      primitive: 'cylinder',
+      radius: 0.04,
+      height: 0.02
     });
 
-    el.setAttribute('material', {color: this.color});
+    el.setAttribute('material', {color: this.color, src: this.data.image});
     el.setAttribute('pressable', '');
-
+    
+    el.setAttribute('rotation', '-90 0 0');
     labelEl.setAttribute('position', '0 0 0.02');
-    labelEl.setAttribute('text', {
+    
+    /*labelEl.setAttribute('text', {
       value: this.data.label,
       color: 'white',
       align: 'center'
-    });
+    });*/
 
     labelEl.setAttribute('scale', '0.75 0.75 0.75');
     this.el.appendChild(labelEl);
@@ -50,13 +52,13 @@ AFRAME.registerComponent('button', {
   },
 
   stateChanged: function () {
-    var color = this.el.is('pressed') ? 'green' : this.color;
+    var color = this.el.is('pressed') ? '#323232' : this.color;
     this.el.setAttribute('material', {color: color});
   },
 
   onPressedStarted: function () {
     var el = this.el;
-    el.setAttribute('material', {color: 'green'});
+    el.setAttribute('material', {color: '#323232'});
     el.emit('click');
     if (this.data.togabble) {
       if (el.is('pressed')) {
