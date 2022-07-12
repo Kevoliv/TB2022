@@ -81,6 +81,7 @@ AFRAME.registerComponent('arrowoff', {
 
     
     this.videoEl = document.querySelector("#videoSrc");
+    this.soundClickEl = document.querySelector('#SoundClickV');
         
 
     this.playButtonEl = document.querySelector('#playVideo');
@@ -106,6 +107,7 @@ AFRAME.registerComponent('arrowoff', {
     var iconBtn = document.querySelector('#iconBtn');
     if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
+      this.soundClickEl.components.sound.playSound();
       
       if (this.videoEl.paused){
         
@@ -126,6 +128,7 @@ AFRAME.registerComponent('arrowoff', {
     }
     if (targetEl === this.pauseButtonEl ) {
       this.pauseButtonEl.removeState('pressed');
+      this.soundClickEl.components.sound.playSound();
       
       this.videoEl.pause();
       console.log("PAUSE");
@@ -133,6 +136,7 @@ AFRAME.registerComponent('arrowoff', {
     }
     if (targetEl === this.repeatButtonEl ) {
       this.repeatButtonEl.removeState('pressed');
+      this.soundClickEl.components.sound.playSound();
       
       this.videoEl.pause();
       this.videoEl.currentTime = 0;
@@ -153,6 +157,7 @@ AFRAME.registerComponent('event-manager-sound', {
     this.bindMethods();
 
     this.soundEl = document.querySelector('#Sound');
+    this.soundClickEl = document.querySelector('#SoundClick');
     
 
     this.playButtonEl = document.querySelector('#playSound');
@@ -178,6 +183,7 @@ AFRAME.registerComponent('event-manager-sound', {
     
     if (targetEl === this.playButtonEl  ) {
       this.playButtonEl.removeState('pressed');
+      this.soundClickEl.components.sound.playSound();
       
       if (isPlaying == false){
         
@@ -202,6 +208,7 @@ AFRAME.registerComponent('event-manager-sound', {
     
      if (targetEl === this.repeatButtonEl ) {
       this.repeatButtonEl.removeState('pressed');
+      this.soundClickEl.components.sound.playSound();
       
       this.soundEl.components.sound.stopSound();
        iconBtn.setAttribute("material","src: #playBtn");
@@ -229,7 +236,8 @@ AFRAME.registerComponent('event-manager-sound', {
     init: function() {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
-        
+        var soundOpenEl = document.querySelector('#SoundOpenI');
+        soundOpenEl.components.sound.playSound();
         var el;
         
         el = document.querySelector("#pinPoiVideo");
@@ -290,6 +298,9 @@ AFRAME.registerComponent('event-manager-sound', {
       })
       this.el.addEventListener("hitend", (e) => {
         console.log("EXIT")
+        
+        var soundOpenEl = document.querySelector('#SoundCloseI');
+        soundOpenEl.components.sound.playSound();
         
         var el;
         
@@ -376,6 +387,9 @@ AFRAME.registerComponent('event-manager-sound', {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
+        var soundOpenEl = document.querySelector('#SoundOpenV');
+        soundOpenEl.components.sound.playSound();
+        
         var el;
         
         var videoEl = document.querySelector("#videoSrc");
@@ -424,6 +438,9 @@ AFRAME.registerComponent('event-manager-sound', {
       })
       this.el.addEventListener("hitend", (e) => {
         console.log("EXIT")
+        
+        var soundOpenEl = document.querySelector('#SoundCloseV');
+        soundOpenEl.components.sound.playSound();
         
         var iconBtn = document.querySelector('#iconBtn');
         iconBtn.setAttribute("material","src: #playBtn");
@@ -486,6 +503,9 @@ AFRAME.registerComponent('event-manager-sound', {
       this.el.addEventListener("hitstart", (e) => {
         console.log(e)
         
+        var soundOpenEl = document.querySelector('#SoundOpenS');
+        soundOpenEl.components.sound.playSound();
+        
         var soundEl = document.querySelector("#Sound");
         soundEl.components.sound.playSound();
         var iconBtn = document.querySelector('#iconBtnSound');
@@ -526,6 +546,9 @@ AFRAME.registerComponent('event-manager-sound', {
       })
       this.el.addEventListener("hitend", (e) => {
         console.log("EXIT")
+        
+        var soundOpenEl = document.querySelector('#SoundCloseS');
+        soundOpenEl.components.sound.playSound();
         
         var soundEl = document.querySelector("#Sound");
         soundEl.components.sound.stopSound();
@@ -631,7 +654,9 @@ AFRAME.registerComponent('event-manager-sound', {
         
         
         <audio id="water" crossorigin="anonymous" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-machine-temps.wav?v=1657532554784" preload="auto"></audio>
-        
+        <audio id="clickBtn" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/clickButton.wav?v=1657628496724" preload="auto"></audio>
+        <audio id="soundOpen" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Open.wav?v=1657633055012" preload="auto"></audio>
+        <audio id="soundClose" crossorigin="anonymous" src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Close.wav?v=1657633057255" preload="auto"></audio>
         <a-mixin
           id="image"
           geometry="primitive: plane; height: 1.0; width: 1.0"
@@ -790,6 +815,9 @@ AFRAME.registerComponent('event-manager-sound', {
         >
           
         
+          <a-entity id="SoundOpenI" sound="src: #soundOpen; autoplay: false; volume: 0.1;"></a-entity>
+          <a-entity id="SoundCloseI" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
+          
         </a-entity>
         <a-entity
                   id="pinPoiImage"
@@ -923,7 +951,8 @@ AFRAME.registerComponent('event-manager-sound', {
                   animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
                  animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
                   
-                  ></a-entity>
+                  >
+        </a-entity>
         
         <a-entity
           
@@ -936,6 +965,9 @@ AFRAME.registerComponent('event-manager-sound', {
           rotation="0 0 0"
           geometry=" color: red; primitive: cylinder;  height: 3; "
         >
+          <a-entity id="SoundOpenV" sound="src: #soundOpen; autoplay: false; volume: 0.1"></a-entity>
+          <a-entity id="SoundCloseV" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
+          
            <a-entity
                   id="pinPoiVideo"
          mixin="Pin"
@@ -986,7 +1018,7 @@ AFRAME.registerComponent('event-manager-sound', {
                   >
         </a-entity>
         
-        
+        <a-entity id="SoundClickV" sound="src: #clickBtn; autoplay: false;"></a-entity>
         
         
         <a-entity class="ArrowOFF" position="1 -200000 3000" 
@@ -1063,6 +1095,8 @@ AFRAME.registerComponent('event-manager-sound', {
           geometry=" color: red; primitive: cylinder; height: 3; "
                   
         >
+          <a-entity id="SoundOpenS" sound="src: #soundOpen; autoplay: false; volume: 0.1;"></a-entity>
+          <a-entity id="SoundCloseS" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
         
         <a-entity
                   id="pinPoiSound"
@@ -1083,9 +1117,9 @@ AFRAME.registerComponent('event-manager-sound', {
         
         
         
+        <a-entity id="SoundClick" sound="src: #clickBtn; autoplay: false;"></a-entity>
         
-        
-        <a-entity id="Sound" sound="src: #water; autoplay: false;"></a-entity>
+        <a-entity id="Sound" sound="src: #water; autoplay: false; volume: 15.0;"></a-entity>
         
         
         
