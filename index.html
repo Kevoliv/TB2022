@@ -512,6 +512,10 @@ AFRAME.registerComponent('event-manager-sound', {
         iconBtn.setAttribute("material","src: #pauseBtn");
         
         var el;
+        
+        el = document.querySelector("#titleSound");
+        el.emit(`entertext`, null, false);
+        el.setAttribute("visible",true);
          
         el = document.querySelector("#ImageZone");
         el.emit(`entercolor`, null, false);
@@ -556,6 +560,10 @@ AFRAME.registerComponent('event-manager-sound', {
         iconBtn.setAttribute("material","src: #pauseBtn");
         
         var el;
+        
+        el = document.querySelector("#titleSound");
+        el.emit(`exitext`, null, false);
+        el.setAttribute("visible",false);
          
         el = document.querySelector("#menu-sound");
         el.setAttribute("visible",false);
@@ -666,22 +674,22 @@ AFRAME.registerComponent('event-manager-sound', {
         <img
           id="olivier0"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-1.jpg?v=1657034125040"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-1.jpg?v=1657803371891"
         />
         <img
           id="olivier1"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-2.jpg?v=1657034125060"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-2.jpg?v=1657803371937"
         />
         <img
           id="olivier2"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-3.jpg?v=1657034125329"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-3.jpg?v=1657803371796"
         />
         <img
           id="olivier3"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-4.jpg?v=1657034125353"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/img-4.jpg?v=1657803371780"
         />
         
         <a-mixin
@@ -747,11 +755,12 @@ AFRAME.registerComponent('event-manager-sound', {
             <a-entity
 
 
+            
             aabb-collider="objects: .zone" 
             id="HitBox"
             class="hitbox"
-            position="0 -0.5 0.3"
-            geometry="primitive: sphere; radius: 0.01;"
+            position="0 0.0 0.0"
+            geometry="primitive: sphere; radius: 0.1;"
 
             material="color: blue"
             size-change
@@ -793,11 +802,11 @@ AFRAME.registerComponent('event-manager-sound', {
         
         <a-entity id="ImageZone" rotation="90 0 0"
                   position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.9; radiusOuter: 1"
-          material="side: double; color: white;"
+          material="side: double; color: #E3E3E3;"
                   
                   
                   animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
-                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+                 animation__exitcolor="property: components.material.material.color; type: color; to: #E3E3E3; startEvents: exitcolor; dur: 500"
           ></a-entity>
         
         <a-entity
@@ -809,7 +818,7 @@ AFRAME.registerComponent('event-manager-sound', {
           
           
           rotation="0 0 0"
-          geometry=" color: red; primitive: cylinder; height: 3; "
+          geometry=" color: red; primitive: cylinder; height: 3; radius: 0.8 "
                   material="opacity: 0.0; alpha-test: 0.5;"
          visible="true"
         >
@@ -892,11 +901,11 @@ AFRAME.registerComponent('event-manager-sound', {
           animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
           animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;">
             
-            <a-text position="-0.5 0.635 0" value="Le TITRE" id="titleImage"   transparent="true" 
+            <a-text position="-0.5 0.718 0" value="La biodiversité est une ressource limitée" id="titleImage"   transparent="true" 
                 opacity="1.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
-                visible="false" color="White" negate="false" text=" opacity: 0.0; width: 2.5; align: left; baseline: top; side: double; anchor: left;" scale="" 
+                visible="false" color="White" negate="false" text=" opacity: 0.0; wrapCount: 20; width: 1.0; align: left; baseline: top; side: double; anchor: left;" scale="" 
                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
 </a-text>
@@ -924,7 +933,8 @@ AFRAME.registerComponent('event-manager-sound', {
           ></a-entity>----------------- -->
      
       <a-entity id="Poi-Video" position="-0.5 0.1 -1.5" >
-        <a-entity id="menu-video" menu=""  position="-0.25635 1.1 -0.5433" visible="false" rotation="-45 17.73304375929898 0" 
+        <a-entity id="menu-video" menu=""  
+                  position="-0.170 1.1 -0.571" visible="false" rotation="-45 17.438 0" 
                   event-manager-video=""
                   animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
@@ -945,30 +955,16 @@ AFRAME.registerComponent('event-manager-sound', {
           </a-entity>
        </a-entity>
         
-        <a-entity id="VideoZone" rotation="90 0 0" position="0 0 0" geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-          material="side: double; color: white;"
+        <a-entity id="VideoZone" rotation="90 0 0" position="0 0 0" geometry="primitive: ring; radiusInner: 0.9; radiusOuter: 1"
+          material="side: double; color: #E3E3E3;"
                   
                   animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
-                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+                 animation__exitcolor="property: components.material.material.color; type: color; to: #E3E3E3; startEvents: exitcolor; dur: 500"
                   
                   >
         </a-entity>
         
-        <a-entity
-          
-          id="holotestVideo"
-          poivideo
-          class="zone"
-          
-          
-          material="opacity: 0.0; alpha-test: 0.5;"
-          rotation="0 0 0"
-          geometry=" color: red; primitive: cylinder;  height: 3; "
-        >
-          <a-entity id="SoundOpenV" sound="src: #soundOpen; autoplay: false; volume: 0.1"></a-entity>
-          <a-entity id="SoundCloseV" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
-          
-           <a-entity
+         <a-entity
                   id="pinPoiVideo"
          mixin="Pin"
         material="transparent: true; opacity: 1.0;  src: #pinImage;"
@@ -979,10 +975,26 @@ AFRAME.registerComponent('event-manager-sound', {
          animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
         
+        
+        <a-entity
+          
+          id="holotestVideo"
+          poivideo
+          class="zone"
+          
+          
+          material="opacity: 0.0; alpha-test: 0.5;"
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder;  height: 3; radius: 0.8 "
+        >
+          <a-entity id="SoundOpenV" sound="src: #soundOpen; autoplay: false; volume: 0.1"></a-entity>
+          <a-entity id="SoundCloseV" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
+          
+          
         </a-entity>
 
-        <a-entity rotation="0 40 0"  position="-2 1.7 -2.0">
-        <a-text position="-1.493 0.2 0" value="Le préservationnisme" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="0.0"
+        <a-entity rotation="0 16.431 0"  position="-0.610 1.887 -2.849">
+        <a-text position="-1.493 0.2 0" value="La biodiversité est un temple sacré" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="0.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
                 color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
@@ -990,15 +1002,17 @@ AFRAME.registerComponent('event-manager-sound', {
                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
 </a-text>
           
-        <a-entity  visible="false"  text="value: Le preservationnisme;"  scale="3 3 3"  align="center" baseline="center" transparent="true" opacity="0.0"   
-                  animation__entertext="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
-          animation__exitext="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"
-          > 
         
-          </a-entity>
-       <a-entity font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
-                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" text="wrapCount: 30; width: 1.31; value: Le préservationnisme vise à protéger la nature de tout usage. Ils cherchent à éliminer le facteur d'impact humain sur la biodiversité.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false; opacity: 0" position="-1.48 0 0" width="2.0" height="1" transparent="true" 
-                 opacity="0.0" class="description" animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+        
+          
+       <a-entity
+                 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; width: 2.0; value: ..pour la protéger, il ne faut pas y pénétrer.; anchor: left; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false; opacity: 0"
+                 position="-1.042 -1.449 0"  height="1" transparent="true" 
+                 opacity="0.0" class="description" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
        
           
         </a-entity>
@@ -1052,6 +1066,15 @@ AFRAME.registerComponent('event-manager-sound', {
       <a-entity id="Poi-Sound" position="4.5 0.1 -5.3" >
         
         
+        <a-text position="-2.143 1.671 -2.257" rotation="0 20.887 0" value="La biodiversité est un temple sacré" id="titleSound"  
+                align="center" baseline="center" transparent="true" opacity="0.0"
+                font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
+                font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
+                color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
+                animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"></a-text>
+        
+        
         
         
         <a-entity id="menu-sound" menu=""  position="-0.25635 1.1 -0.5433" visible="false" rotation="-45 17.73304375929898 0" 
@@ -1076,27 +1099,13 @@ AFRAME.registerComponent('event-manager-sound', {
        </a-entity>
         
         <a-entity id="SoundZone" rotation="90 0 0" position="0 -0.09 0"
-                  geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-          material="side: double; color: white;"
+                  geometry="primitive: ring; radiusInner: 0.9; radiusOuter: 1"
+          material="side: double; color: #E3E3E3;"
                   
                   animation__entercolor="property: components.material.material.color; type: color; to: #282828; startEvents: entercolor; dur: 500" 
-                 animation__exitcolor="property: components.material.material.color; type: color; to: white; startEvents: exitcolor; dur: 500"
+                 animation__exitcolor="property: components.material.material.color; type: color; to: #E3E3E3; startEvents: exitcolor; dur: 500"
                   
                   ></a-entity>
-        <a-entity
-          
-          id="holotestSound"
-          poisound
-          class="zone"
-          
-          
-          material="opacity: 0.0; alpha-test: 0.5;"
-          rotation="0 0 0"
-          geometry=" color: red; primitive: cylinder; height: 3; "
-                  
-        >
-          <a-entity id="SoundOpenS" sound="src: #soundOpen; autoplay: false; volume: 0.1;"></a-entity>
-          <a-entity id="SoundCloseS" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
         
         <a-entity
                   id="pinPoiSound"
@@ -1107,7 +1116,24 @@ AFRAME.registerComponent('event-manager-sound', {
         scale="3 3 3"  
          
          animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
-         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
+         animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
+                  ></a-entity>
+        <a-entity
+          
+          id="holotestSound"
+          poisound
+          class="zone"
+          
+          
+          material="opacity: 0.0; alpha-test: 0.5;"
+          rotation="0 0 0"
+          geometry=" color: red; primitive: cylinder; height: 3; radius: 0.8 "
+                  
+        >
+          <a-entity id="SoundOpenS" sound="src: #soundOpen; autoplay: false; volume: 0.1;"></a-entity>
+          <a-entity id="SoundCloseS" sound="src: #soundClose; autoplay: false; volume: 0.1;"></a-entity>
+        
+        
         
         
         </a-entity>
