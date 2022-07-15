@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <title>Hand Tracking! • A-Frame</title>
     <meta name="description" content="Hand Tracking! • A-Frame" />
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap" rel="stylesheet">
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     
     <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
@@ -21,6 +23,7 @@
     <script src="rounded-component.js"></script>
     <script src="color-change.js"></script>
     <script src="slider.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script src="size-change.js"></script>
     <script src="model-opacity.js"></script>
     <script src="button.js"></script>
@@ -38,7 +41,7 @@
       
       
       
-      // Component to change to a sequential color on click.
+      // Component to change to a sequential color on click. 
 AFRAME.registerComponent('arrowon', {
   init: function () {
      
@@ -605,7 +608,20 @@ AFRAME.registerComponent('event-manager-sound', {
   </head>
   <body>
     
-    <a-scene  enabled="true" debug="true">
+    
+    <a-scene  enabled="true" debug="true"
+             vr-mode-ui=" enterARButton: #EnterARButton; enterVRButton: #EnterVRButton;">
+      <div id="intro" >
+        <h1>
+          BiodivAR
+        </h1>
+        <p id="textIntro">
+          Bienvenue dans l’expérience BiodivAR.<br> En vous approchant des hologrammes que vous voyez, vous découvrirez des explications sur trois concepts liés à la biodiversité. Vous pouvez interagir avec certains d’entre eux avec vos doigts. <br><br>N’hésitez pas à faire des commentaires à voix haute sur ce que vous ressentirez pendant cette expérience.
+        </p>
+        <a id="EnterARButton" class="a-hidden" href="#"><p>Démarrer l'expérience AR</p></a>
+        <a id="EnterVRButton" class="a-hidden" href="#"></a>
+      </div>
+      
       <a-assets>
         
         <a-asset-item
@@ -726,7 +742,7 @@ AFRAME.registerComponent('event-manager-sound', {
        <a-entity position="0 0 0" class="hitbox"   >
         <a-entity
           position="0 1.7 0"
-           look-controls="enabled: true"
+           look-controls="enabled: true; pointerLockEnabled: true;"
                   wasd-controls
           camera
           id="camera"
