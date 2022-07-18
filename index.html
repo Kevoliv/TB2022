@@ -433,9 +433,9 @@ AFRAME.registerComponent('event-manager-sound', {
         el.emit(`entertext`, null, false);
           
         el = document.querySelector(".ArrowON");
-        el.setAttribute('position', { x: -0.290, y: 1.4, z: -1.0 });
+        el.setAttribute('position', { x: 0, y: 1.4, z: 0 });
         el = document.querySelector(".ArrowOFF");
-        el.setAttribute('position', { x: -0.64037, y: 2.02786, z: -1.43372 });
+        el.setAttribute('position', { x: -0.64037, y: 2.028, z: -1.759 });
 
            // el.setAttribute("visible",true);
       })
@@ -666,7 +666,7 @@ AFRAME.registerComponent('event-manager-sound', {
           id="Pin"
           geometry="primitive: plane; height: 2.0; width: 1.0"
           material="shader: flat; alphaTest: 0.5 side: double; transparent: true;  "
-          look-at="[camera]"
+          look-at="#fixation"
         ></a-mixin>
         <img
           id="pinImage"
@@ -685,7 +685,7 @@ AFRAME.registerComponent('event-manager-sound', {
           id="image"
           geometry="primitive: plane; height: 1.0; width: 1.0"
           material="shader: flat; alphaTest: 0.5; transparent: true;  "
-          look-at="[camera]"
+          look-at="#fixationImages"
         ></a-mixin>
         <img
           id="olivier0"
@@ -748,7 +748,9 @@ AFRAME.registerComponent('event-manager-sound', {
           id="camera"
           
         >
-            <a-entity cursor="fuse: true;"
+            <a-entity 
+                      hide-on-enter-ar
+                      cursor="fuse: true;"
             position="0 0 -1.0"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
             material="color: black; shader: flat"
@@ -766,7 +768,7 @@ AFRAME.registerComponent('event-manager-sound', {
         
             ></a-entity>
           
-          
+          <a-entity geometry="depth: 0.1; height: 0.1; width: 0.1" position="0 -0.7 0" id="fixation"></a-entity>
           
             <a-entity
 
@@ -805,8 +807,7 @@ AFRAME.registerComponent('event-manager-sound', {
       
        
       
-      <a-box position="0 0.1 0" height="0.1" width="0.1" depth="0.1" >
-      </a-box>
+      
 
       
 <!-- HOLO------------------------- -->
@@ -814,7 +815,7 @@ AFRAME.registerComponent('event-manager-sound', {
 
       
       <!-- POI Image gltf-model="#holocircle"  ----------------- -->
-      <a-entity id="Poi-Image" position="1.6 0.1 -3.2"  >
+      <a-entity id="Poi-Image" position="0 0.1 -3.357"  >
         
         <a-entity id="ImageZone" rotation="90 0 0"
                   position="0 -0.09 0" geometry="primitive: ring; radiusInner: 0.9; radiusOuter: 1"
@@ -838,6 +839,7 @@ AFRAME.registerComponent('event-manager-sound', {
                   material="opacity: 0.0; alpha-test: 0.5;"
          visible="true"
         >
+          <a-entity visible="false" geometry="depth: 0.1; height: 0.1; width: 0.1" position="0 1.45 0" id="fixationImages"></a-entity>
           
         
           <a-entity id="SoundOpenI" sound="src: #soundOpen; autoplay: false; volume: 0.1;"></a-entity>
@@ -848,9 +850,9 @@ AFRAME.registerComponent('event-manager-sound', {
                   id="pinPoiImage"
          mixin="Pin"
         material="transparent: true; opacity: 1.0;  src: #pinImage;"
-        position="0 1.1 0"
+        position="0 0.803 0"
         
-        scale="3 3 3"  
+        scale="2 2 2"  
          
          animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
@@ -871,10 +873,10 @@ AFRAME.registerComponent('event-manager-sound', {
           
              
           
-          position="0 1.4 -0.5"
-          layout="type: circle; angle: 40; radius: 1.7 "
-          rotation="-90 20 0"
-                  
+          position="0 1.4 0"
+          layout="type: circle; angle: 40; radius: 1.920 "
+          rotation="-90 30 0"
+                  scale="0.5 0.5 0.5"
           
         >
           <a-entity visible="false" class="pImage" id="imageP1E0" mixin="image" material="transparent: true; opacity: 0.0;  src: #olivier3; "
@@ -948,9 +950,9 @@ AFRAME.registerComponent('event-manager-sound', {
       <!-- POI Video <a-entity play-on-click position="0 1.7 1" id="videoYoutube2" mixin="video" material="transparent: true; opacity: 1.0; src: #youtube; " 
           ></a-entity>----------------- -->
      
-      <a-entity id="Poi-Video" position="-0.5 0.1 -1.5" >
+      <a-entity id="Poi-Video" position="4.332 0.1 -2.809" rotation="0 -90 0" >
         <a-entity id="menu-video" menu=""  
-                  position="-0.170 1.1 -0.571" visible="false" rotation="-45 17.438 0" 
+                  position="0 1.1 -0.3" visible="false" rotation="-45 0 0" 
                   event-manager-video=""
                   animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
@@ -984,9 +986,9 @@ AFRAME.registerComponent('event-manager-sound', {
                   id="pinPoiVideo"
          mixin="Pin"
         material="transparent: true; opacity: 1.0;  src: #pinImage;"
-        position="0 1.1 0"
+        position="0 0.803 0"
         
-        scale="3 3 3"  
+        scale="2 2 2"  
          
          animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"></a-entity>
@@ -1008,9 +1010,15 @@ AFRAME.registerComponent('event-manager-sound', {
           
           
         </a-entity>
+        
+        <entity>
+        
+        
+        </entity>
 
-        <a-entity rotation="0 16.431 0"  position="-0.610 1.887 -2.849">
-        <a-text position="-1.493 0.2 0" value="La biodiversité est un temple sacré" id="titleVideo" class="Title" align="center" baseline="center" transparent="true" opacity="0.0"
+        <a-entity rotation="0 0 0"  position="0.058 1.582 -0.890" scale="0.4 0.4 0.4">
+        <a-text position="-1.493 0.2 0" value="La biodiversité est un temple sacré" id="titleVideo"
+                class="Title" align="center" baseline="center" transparent="true" opacity="0.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
                 color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
@@ -1034,14 +1042,14 @@ AFRAME.registerComponent('event-manager-sound', {
         </a-entity>
         
           <a-curvedimage  material="transparent: true; opacity: 0.0; src: #videoSrc; " id="videoCurv" 
-                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.2 0"
-          rotation="0 170 0" scale="0.8 0.8 0.8"
+                         class="pVideo"  height="1.8" radius="4.0" theta-length="50" position="0 1.3 0.2"
+          rotation="0 155 0" scale="0.3 0.3 0.3"
           animation__enterp2e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp2e0; dur: 800;"
           animation__exitp2e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp2e0; dur: 200;"></a-curvedimage>
         
          
-        <a-entity id="DirectionVideo" position="-1.92378 1.39885 -3.67469" 
-                  rotation="0.40851890792827694 -150.3567305138209 0.07964113352318443" 
+        <a-entity id="DirectionVideo" position="0 1.39885 -3.67469" 
+                  rotation="0 180 0" 
                   geometry="primitive: plane; height: 3; width: 8" material="side: double"
                   cursor-listener
                   visible="false"
@@ -1052,10 +1060,10 @@ AFRAME.registerComponent('event-manager-sound', {
         
         
         <a-entity class="ArrowOFF" position="1 -200000 3000" 
-                  rotation="0.40851890792827694 30.9758172781577 0.07964113352318443" 
+                  rotation="0 0 0" 
                   geometry="primitive: plane; height: 5.95; width: 8" material="side: double; color: red; transparent: true;" visible="false" arrowoff>
         </a-entity>
-        <a-entity class="ArrowON" position="1 -200000 3000" rotation="0.40851890792827694 -19.144238808706195 0.07964113352318443" 
+        <a-entity class="ArrowON" position="1 -200000 3000" rotation="0.409 -19.334 0.078" 
                   geometry="primitive: sphere; radius: 2.9"
           material="side: double; transparent: true;" visible="false" arrowon>
         </a-entity>
@@ -1079,21 +1087,21 @@ AFRAME.registerComponent('event-manager-sound', {
       
       
       <!-- POI Sound ----------------- -->
-      <a-entity id="Poi-Sound" position="4.5 0.1 -5.3" >
+      <a-entity id="Poi-Sound" position="-3.967 0.1 -2.100" rotation="0 90 0" >
         
         
-        <a-text position="-2.143 1.671 -2.257" rotation="0 20.887 0" value="La biodiversité est un temple sacré" id="titleSound"  
+        <a-text position="0 1.6 -1.1" rotation="0 0 0" value="La biodiversité est un temple sacré" id="titleSound"  
                 align="center" baseline="center" transparent="true" opacity="0.0"
                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
-                color="White" negate="false" text="width: 3.5; align: left; baseline: top; side: double" scale="" visible=""
+                color="White" negate="false" text="width: 1.2; align: center; wrapCount: 17.0; baseline: top; side: double" scale="" visible=""
                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;"></a-text>
         
         
         
         
-        <a-entity id="menu-sound" menu=""  position="-0.25635 1.1 -0.5433" visible="false" rotation="-45 17.73304375929898 0" 
+        <a-entity id="menu-sound" menu=""  position="0 1.1 -0.350" visible="false" rotation="-40 0 0" 
                   event-manager-sound
                   animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
@@ -1127,9 +1135,9 @@ AFRAME.registerComponent('event-manager-sound', {
                   id="pinPoiSound"
          mixin="Pin"
         material="transparent: true; opacity: 1.0;  src: #pinImage;"
-        position="0 1.1 0"
+        position="0 0.803 0"
         
-        scale="3 3 3"  
+        scale="2 2 2"  
          
          animation__enterpin="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: enterpin; dur: 300;"
          animation__exitpin="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: exitpin; dur: 800;"
@@ -1185,10 +1193,7 @@ AFRAME.registerComponent('event-manager-sound', {
       ></a-plane>
       <a-sky hide-on-enter-ar color="skyblue"></a-sky>
       <a-entity hand-tracking-controls="hand: left; ">
-        <a-sphere
-                  color="red" 
-                  radius="0.1"
-                  ></a-sphere>
+        
       </a-entity>
       <a-entity hand-tracking-controls="hand: right; ">
       
