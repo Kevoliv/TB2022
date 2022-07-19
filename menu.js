@@ -2,17 +2,16 @@
 AFRAME.registerComponent('menu', {
   init: function () {
     var el = this.el;
-    var menuBackGroundEl = document.createElement('a-entity');
-    menuBackGroundEl.setAttribute('geometry', {
-      primitive: 'box',
-      width: 0.25,
-      height: 0.15,
-      depth: 0.01
-    });
+    var menuBackGroundEl = document.createElement('a-rounded');
+    menuBackGroundEl.setAttribute('width', '0.25');
+    menuBackGroundEl.setAttribute('height', '0.15');
+    menuBackGroundEl.setAttribute('radius', '0.03');
+    
     menuBackGroundEl.setAttribute('material', {
-      color: '#282828'
+      color: '#282828',
+      side: 'double'
     });
-    menuBackGroundEl.setAttribute('position', '0 0 -0.025');
+    menuBackGroundEl.setAttribute('position', '-0.126 -0.075 -0.021');
     el.appendChild(menuBackGroundEl);
   }
 });

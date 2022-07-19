@@ -443,3 +443,115 @@ animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* global AFRAME */
+AFRAME.registerComponent('menu', {
+  init: function () {
+    var el = this.el;
+    var menuBackGroundEl = document.createElement('a-entity');
+    menuBackGroundEl.setAttribute('geometry', {
+      primitive: 'box',
+      width: 0.25,
+      height: 0.15,
+      depth: 0.01
+    });
+    menuBackGroundEl.setAttribute('material', {
+      color: '#282828'
+    });
+    menuBackGroundEl.setAttribute('position', '0 0 -0.025');
+    el.appendChild(menuBackGroundEl);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+<a-entity
+          id="Gpoi1"
+          
+             
+          
+          position="0 1.4 0"
+          layout="type: circle; angle: 40; radius: 1.920 "
+          rotation="-90 30 0"
+                  scale="0.5 0.5 0.5"
+          
+        >
+          <a-entity visible="false" class="pImage" id="imageP1E0"
+                     mixin="imageRounded" material="transparent: true; opacity: 0.0;  src: #olivier3; "
+          animation__enterp1e0="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e0; dur: 800;"
+          animation__exitp1e0="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e0; dur: 200;">
+          <a-entity id="description3" position="0 -0.05 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: De plus, puisque tous les individus sont similaires, ils ne répondent pas aux besoins en habitat de la faune, qui a besoin d'arbres morts, de clairières, etc. Cette raréfaction des habitats provoque une perte de la biodiversité.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" alpha-test="0.5" width="1.0" height="1" transparent="true" opacity="0.0" material="alphaTest: 0.5"
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          
+          <a-entity id="imageP1E1" class="pImage"
+                     mixin="imageRounded" material="transparent: true; opacity: 0.0; src: #olivier2; " 
+          animation__enterp1e1="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e1; dur: 800;"
+          animation__exitp1e1="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e1; dur: 200;">
+          <a-entity id="description2" position="0 -0.05 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: Mais la monoculture cause un épuisement des éléments nutritifs dans le sol et une surpopulation des espèces qui s'en nourrissent (parasites, ravageurs, maladies). Les agriculteurs doivent recourir à des produits chimiques pour lutter contre ces envahisseurs, ce qui contamine les sols.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          
+          <a-entity id="imageP1E2" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier1; " 
+          animation__enterp1e2="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e2; dur: 800;"
+          animation__exitp1e2="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e2; dur: 200;">
+          <a-entity id="description1" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; alphaTest: 0.5; width: 1.0; value: La monoculture est la pratique qui consiste à ne planter qu'une seule espèce sur une surface (comme un champ de blé). Cela permet de réduire les coûts de production et d'augmenter le rendement. ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false" width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          
+          <a-entity id="imageP1E3" class="pImage" mixin="image" material="transparent: true; opacity: 0.0; src: #olivier0; " 
+          animation__enterp1e3="property: material.opacity; type: opacity; from: 0; to: 1; startEvents: enterp1e3; dur: 800;"
+          animation__exitp1e3="property: material.opacity; type: opacity; from: 1; to: 0; startEvents: exitp1e3; dur: 200;">
+            
+            <a-text position="-0.5 0.718 0" value="La biodiversité est une ressource limitée" id="titleImage"   transparent="true" 
+                opacity="1.0"
+                font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black-msdf.json?v=1656583269077" 
+                font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Black.png?v=1656583271168"
+                visible="false" color="White" negate="false" text=" opacity: 0.0; wrapCount: 20; width: 1.0; align: left; baseline: top; side: double; anchor: left;" scale="" 
+                animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800;"
+                animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200;">
+</a-text>
+            <a-entity id="description0" position="0 -0.55 0" 
+                 font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
+                 font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
+                 text="wrapCount: 40; opacity: 0.0; width: 1.0; value: La biodiversité est une ressource limitée dont il faut faire un usage raisonné, respectueux des équilibres naturels et des rythmes de renouvellement des milieux.  ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 visible="false"  width="1.0" height="1" transparent="true" opacity="0.0" 
+                 animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
+                 animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
+          </a-entity>
+          </a-entity>
