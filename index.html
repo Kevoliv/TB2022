@@ -616,10 +616,10 @@ AFRAME.registerComponent('event-manager-sound', {
           BiodivAR
         </h1>
         <p id="textIntro">
-          Bienvenue dans l’expérience BiodivAR.<br> En vous approchant des hologrammes que vous voyez, vous découvrirez des explications sur trois concepts liés à la biodiversité. Vous pouvez interagir avec certains d’entre eux avec vos doigts. <br><br>N’hésitez pas à faire des commentaires à voix haute sur ce que vous ressentirez pendant cette expérience.
+          Bienvenue dans l’expérience BiodivAR. En vous approchant des hologrammes que vous voyez, vous découvrirez des explications sur trois concepts liés à la biodiversité. Vous pouvez interagir avec certains d’entre eux avec vos doigts. <br><br>N’hésitez pas à faire des commentaires à voix haute sur ce que vous ressentirez pendant cette expérience.
         </p>
         <a id="EnterARButton" class="a-hidden" href="#"><p>Démarrer l'expérience AR</p></a>
-        <a id="EnterVRButton" class="a-hidden" href="#"></a>
+        <a id="EnterVRButton" class="a-hidden" href="#"><p>Démarrer l'expérience VR</p></a>
       </div>
       
       <a-assets>
@@ -671,7 +671,17 @@ AFRAME.registerComponent('event-manager-sound', {
         <img
           id="pinImage"
           crossorigin="anonymous"
-          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbol.png?v=1656495301859"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbolGreen.png?v=1656495301859"
+        />
+        <img
+          id="pinVideo"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbolBlue.png?v=1656495301859"
+        />
+        <img
+          id="pinSound"
+          crossorigin="anonymous"
+          src="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/symbolRed.png?v=1656495301859"
         />
         
          <video id="videoSrc" preload="auto" crossorigin="anonymous"  loop="true" src="https://cdn.glitch.me/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/biodiversite-temple_1.mp4?v=1657198438444"></video>
@@ -754,7 +764,7 @@ AFRAME.registerComponent('event-manager-sound', {
             position="0 0 -1.0"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
             material="color: black; shader: flat"
-            visible="true">
+            visible="false">
             </a-entity>
           
             <a-entity
@@ -909,7 +919,7 @@ AFRAME.registerComponent('event-manager-sound', {
           <a-entity id="description1" position="0 -0.55 0" 
                  font="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909" 
                  font-image="https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475" 
-                 text="wrapCount: 40; opacity: 0.0; alphaTest: 0.5; width: 1.0; value: La monoculture est la pratique qui consiste à ne planter qu'une seule espèce sur une surface (comme un champ de blé). Cela permet de réduire les coûts de production et d'augmenter le rendement. ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
+                 text="wrapCount: 40; opacity: 0.0; alphaTest: 0.5; width: 1.0; value: La monoculture est la pratique qui consiste à ne planter qu'une seule espèce sur une surface (comme un champ de blé). Cela permet de réduire les couts de production et d'augmenter le rendement. ; anchor: center; baseline: top; height: 1.83; side: double; tabSize: 5.29; font: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular-msdf.json?v=1656584427909; fontImage: https://cdn.glitch.global/c5c1461e-d6f0-4cbf-9a32-f71c6e04a5ac/Poppins-Regular.png?v=1656584430475; negate: false" 
                  visible="false" width="1.0" height="1" transparent="true" opacity="0.0" 
                  animation__entertext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 0; to: 1; startEvents: entertext; dur: 800" 
                  animation__exitext="property: components.text.material.uniforms.opacity.value; type: opacity; from: 1; to: 0; startEvents: exitext; dur: 200"></a-entity>
@@ -985,7 +995,7 @@ AFRAME.registerComponent('event-manager-sound', {
          <a-entity
                   id="pinPoiVideo"
          mixin="Pin"
-        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        material="transparent: true; opacity: 1.0;  src: #pinVideo;"
         position="0 0.803 0"
         
         scale="2 2 2"  
@@ -1134,7 +1144,7 @@ AFRAME.registerComponent('event-manager-sound', {
         <a-entity
                   id="pinPoiSound"
          mixin="Pin"
-        material="transparent: true; opacity: 1.0;  src: #pinImage;"
+        material="transparent: true; opacity: 1.0;  src: #pinSound;"
         position="0 0.803 0"
         
         scale="2 2 2"  
@@ -1186,12 +1196,12 @@ AFRAME.registerComponent('event-manager-sound', {
 
       <a-plane
         hide-on-enter-ar
-        color="green"
+        color="#C4C4C4"
         height="100"
         width="100"
         rotation="-90 0 0"
       ></a-plane>
-      <a-sky hide-on-enter-ar color="skyblue"></a-sky>
+      <a-sky hide-on-enter-ar color="#C4C4C4"></a-sky>
       <a-entity hand-tracking-controls="hand: left; ">
         
       </a-entity>
